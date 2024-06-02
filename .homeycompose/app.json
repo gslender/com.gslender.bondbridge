@@ -1,0 +1,32 @@
+{
+  "id": "com.gslender.bondbridge",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "brandColor": "#2f0fbb",
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Bond Bridge Integration"
+  },
+  "description": {
+    "en": "Integrates to Bond Bridge connected range of RF ceiling fans, fireplaces and shades supported devices."
+  },
+  "category": [
+    "climate"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png"
+  },
+  "author": {
+    "name": "Grant Slender",
+    "email": "gslender@gmail.com"
+  },
+  "source": "https://github.com/gslender/com.gslender.bondbridge",
+  "bugs": {
+    "url": "https://github.com/gslender/com.gslender.bondbridge/issues"
+  }
+}

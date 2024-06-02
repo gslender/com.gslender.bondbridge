@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+
+<head>
+
+    <!-- The '/homey.js' script must be included in your settings view to work -->
+    <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+
+</head>
+
+<body>
+
+    <header class="homey-header">
+        <h1 class="homey-title" data-i18n="settings.title">
+        </h1>
+        <p class="homey-subtitle" data-i18n="settings.subtitle">
+        </p>
+    </header>
+    <form class="homey-form">
+        <fieldset class="homey-form-fieldset">
+            <legend class="homey-form-legend">Settings</legend>
+
+            <div class="homey-form-group">
+                <button id="detect" class="homey-button-secondary-shadow">Network Detect...</button>
+            </div>
+            <div class="homey-form-group">
+                <label class="homey-form-label" for="ipaddress">IP Address</label>
+                <input class="homey-form-input" id="ipaddress" type="text" value="" />
+            </div>
+
+        </fieldset>
+
+        <p><button id="save" class="right homey-button-primary-full">Save</button></p>
+    </form>
+    <script type="text/javascript">
+
+        // a method named 'onHomeyReady' must be present in your code
+        function onHomeyReady(Homey) {
+
+            // Tell Homey we're ready to be displayed
+            Homey.ready();
+
+            var ipaddressElement = document.getElementById('ipaddress');
+            var detectElement = document.getElementById('detect');
+            var saveElement = document.getElementById('save');
+
+            Homey.get('izone.ipaddress', function (err, ipaddress) {
+                if (err) return Homey.alert(err);
+                ipaddressElement.value = ipaddress;
+            });
+
+            detectElement.addEventListener('click', function (e) {
+
+                // Homey.api('GET', '/sendMessageAndReturnAddress/', {
+                //     notify: true
+                // },
+                //     function (err, result) {
+                //         if (err) {
+                //             return Homey.alert(err);
+                //         }
+                //         else {
+                //             ipaddressElement.value = result;
+                //         }
+                //     });
+            });
+
+            saveElement.addEventListener('click', function (e) {
+                Homey.set('izone.ipaddress', ipaddressElement.value, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+            });
+        }
+    </script>
+
+</body>
+
+</html>

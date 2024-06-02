@@ -1,0 +1,36 @@
+{
+    "type": "enum",
+    "values": [
+        {
+            "id": "low",
+            "title": {
+                "en": "Low"
+            }
+        },
+        {
+            "id": "medium",
+            "title": {
+                "en": "Medium"
+            }
+        },
+        {
+            "id": "high",
+            "title": {
+                "en": "High"
+            }
+        },
+        {
+            "id": "auto",
+            "title": {
+                "en": "Automatic"
+            }
+        }
+    ],
+    "title": {
+        "en": "Fan mode"
+    },
+    "getable": true,
+    "setable": true,
+    "uiComponent": "picker",
+    "uiQuickAction": true
+}

@@ -1,0 +1,43 @@
+{
+  "name": {
+    "en": "Zones"
+  },
+  "energy": {
+    "batteries": ["AAA", "AAA"]
+  },
+  "class": "thermostat",
+  "capabilities": [
+    "target_temperature",
+    "measure_temperature",
+    "onoff",
+    "measure_battery"
+  ],
+  "capabilitiesOptions": {
+    "measure_temperature": { "decimals": 1},
+    "target_temperature": {  "decimals": 1 }
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "xlarge": "{{driverAssetsPath}}/images/xlarge.png"
+  },
+  "pair": [
+      {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+              "next": "add_my_devices"
+          }
+      },
+      {
+          "id": "add_my_devices",
+          "template": "add_devices"
+      }
+  ]
+}

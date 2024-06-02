@@ -1,0 +1,13 @@
+[
+    {
+        "id": "firmware",
+        "type": "label",
+        "label": {
+            "en": "iZone Firmware"
+        },
+        "value": "",
+        "hint": {
+            "en": "The firmware string reported by iZone."
+        }
+    }
+]
