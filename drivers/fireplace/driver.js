@@ -2,7 +2,7 @@
 
 const { Driver } = require('homey');
 
-class iZoneZoneDriver extends Driver {
+class FireplaceDriver extends Driver {
 
   /**
    * onPairListDevices is called when a user is adding a device
@@ -25,4 +25,4 @@ class iZoneZoneDriver extends Driver {
 
 }
 
-module.exports = iZoneZoneDriver;
+module.exports = FireplaceDriver;

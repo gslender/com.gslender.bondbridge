@@ -2,7 +2,7 @@
 
 const { Driver } = require('homey');
 
-class iZoneACDriver extends Driver {
+class FanDriver extends Driver {
 
   /**
    * onPairListDevices is called when a user is adding a device
@@ -20,4 +20,4 @@ class iZoneACDriver extends Driver {
 
 }
 
-module.exports = iZoneACDriver;
+module.exports = FanDriver;

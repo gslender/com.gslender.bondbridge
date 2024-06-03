@@ -5,10 +5,10 @@
   "scripts": {},
   "devDependencies": {
     "@types/homey": "npm:homey-apps-sdk-v3-types@^0.3.6",
-    "homey": "^3.3.0"
+    "homey": "^3.3.1"
   },
   "dependencies": {
-    "undici": "^6.18.1"
+    "undici": "^6.18.2"
   },
   "author": "Grant Slender",
   "license": "GPL-3.0"

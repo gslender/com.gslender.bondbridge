@@ -2,8 +2,6 @@
 <html>
 
 <head>
-
-    <!-- The '/homey.js' script must be included in your settings view to work -->
     <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
 
 </head>
@@ -16,23 +14,47 @@
         <p class="homey-subtitle" data-i18n="settings.subtitle">
         </p>
     </header>
-    <form class="homey-form">
+    <!-- <form class="homey-form"> -->
         <fieldset class="homey-form-fieldset">
             <legend class="homey-form-legend">Settings</legend>
 
             <div class="homey-form-group">
-                <button id="detect" class="homey-button-secondary-shadow">Network Detect...</button>
+                <button id="checksettings" class="homey-button-secondary-shadow">Check Settings...</button>
             </div>
+            <div class="homey-form-group">
+                <label class="homey-form-label" for="token">Status</label>
+                <p id="status">Unknown!?</p>
+            </div>
+            <hr>
             <div class="homey-form-group">
                 <label class="homey-form-label" for="ipaddress">IP Address</label>
                 <input class="homey-form-input" id="ipaddress" type="text" value="" />
             </div>
+            <div class="homey-form-group">
+                <label class="homey-form-label" for="token">Token</label>
+                <input class="homey-form-input" id="token" type="text" value="" />
+            </div>
 
         </fieldset>
 
-        <p><button id="save" class="right homey-button-primary-full">Save</button></p>
-    </form>
+        <p><button id="save" class="right homey-button-primary-full">Save Changes</button></p>
+    <!-- </form> -->
     <script type="text/javascript">
+
+        var ipaddressElement = document.getElementById('ipaddress');
+        var tokenElement = document.getElementById('token');
+        var statusElement = document.getElementById('status');
+        var checksettingsElement = document.getElementById('checksettings');
+        var saveElement = document.getElementById('save');
+
+        function setBondValues() {
+            Homey.set('bond.ipaddress', ipaddressElement.value, function (err) {
+                if (err) return Homey.alert(err);
+            });
+            Homey.set('bond.token', tokenElement.value, function (err) {
+                if (err) return Homey.alert(err);
+            });
+        }
 
         // a method named 'onHomeyReady' must be present in your code
         function onHomeyReady(Homey) {
@@ -40,34 +62,33 @@
             // Tell Homey we're ready to be displayed
             Homey.ready();
 
-            var ipaddressElement = document.getElementById('ipaddress');
-            var detectElement = document.getElementById('detect');
-            var saveElement = document.getElementById('save');
-
-            Homey.get('izone.ipaddress', function (err, ipaddress) {
+            Homey.get('bond.ipaddress', function (err, ipaddress) {
                 if (err) return Homey.alert(err);
                 ipaddressElement.value = ipaddress;
             });
 
-            detectElement.addEventListener('click', function (e) {
+            Homey.get('bond.token', function (err, token) {
+                if (err) return Homey.alert(err);
+                tokenElement.value = token;
+            });
 
-                // Homey.api('GET', '/sendMessageAndReturnAddress/', {
-                //     notify: true
-                // },
-                //     function (err, result) {
-                //         if (err) {
-                //             return Homey.alert(err);
-                //         }
-                //         else {
-                //             ipaddressElement.value = result;
-                //         }
-                //     });
+
+            checksettingsElement.addEventListener('click', function (e) {
+                setBondValues();
+                Homey.api('GET', '/checkStatus/', null,(err, result) => {
+                        if (err) {
+                            return Homey.alert(err);
+                            statusElement.innerText = "Failed!";
+                        }
+                        else {
+                            statusElement.innerText = result;
+                        }
+                    });
             });
 
             saveElement.addEventListener('click', function (e) {
-                Homey.set('izone.ipaddress', ipaddressElement.value, function (err) {
-                    if (err) return Homey.alert(err);
-                });
+                setBondValues();
+                return Homey.alert("Settings Saved");
             });
         }
     </script>

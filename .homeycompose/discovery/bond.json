@@ -1,0 +1,8 @@
+{
+    "type": "mdns-sd",
+    "mdns-sd": {
+      "name": "_bond",
+      "protocol": "tcp"
+    },
+    "id": "{{txt.id}}"
+  }

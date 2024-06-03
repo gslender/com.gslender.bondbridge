@@ -30,10 +30,16 @@
   "bugs": {
     "url": "https://github.com/gslender/com.gslender.bondbridge/issues"
   },
+  "api": {
+    "checkStatus": {
+      "method": "get",
+      "path": "/checkStatus"
+    }
+  },
   "drivers": [
     {
       "name": {
-        "en": "AC Controller"
+        "en": "Fan"
       },
       "energy": {
         "approximation": {
@@ -41,22 +47,11 @@
           "usageOff": 1
         }
       },
-      "class": "thermostat",
+      "class": "fan",
       "capabilities": [
-        "target_temperature",
-        "measure_temperature",
         "fan_mode",
-        "thermostat_mode",
         "onoff"
       ],
-      "capabilitiesOptions": {
-        "measure_temperature": {
-          "decimals": 1
-        },
-        "target_temperature": {
-          "decimals": 1
-        }
-      },
       "platforms": [
         "local"
       ],
@@ -65,8 +60,7 @@
       ],
       "images": {
         "small": "/drivers/fan/assets/images/small.png",
-        "large": "/drivers/fan/assets/images/large.png",
-        "xlarge": "/drivers/fan/assets/images/xlarge.png"
+        "large": "/drivers/fan/assets/images/large.png"
       },
       "pair": [
         {
@@ -81,20 +75,7 @@
           "template": "add_devices"
         }
       ],
-      "id": "fan",
-      "settings": [
-        {
-          "id": "firmware",
-          "type": "label",
-          "label": {
-            "en": "iZone Firmware"
-          },
-          "value": "",
-          "hint": {
-            "en": "The firmware string reported by iZone."
-          }
-        }
-      ]
+      "id": "fan"
     },
     {
       "name": {
@@ -235,6 +216,16 @@
       "setable": true,
       "uiComponent": "picker",
       "uiQuickAction": true
+    }
+  },
+  "discovery": {
+    "bond": {
+      "type": "mdns-sd",
+      "mdns-sd": {
+        "name": "_bond",
+        "protocol": "tcp"
+      },
+      "id": "{{txt.id}}"
     }
   }
 }

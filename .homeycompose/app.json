@@ -28,5 +28,11 @@
   "source": "https://github.com/gslender/com.gslender.bondbridge",
   "bugs": {
     "url": "https://github.com/gslender/com.gslender.bondbridge/issues"
+  },
+  "api": {
+    "checkStatus": {
+      "method": "get",
+      "path": "/checkStatus"
+    }
   }
 }

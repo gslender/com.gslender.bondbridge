@@ -1,6 +1,6 @@
 {
   "name": {
-    "en": "AC Controller"
+    "en": "Fan"
   },
   "energy": {
     "approximation": {
@@ -8,18 +8,11 @@
       "usageOff": 1 
     }
   },
-  "class": "thermostat",
+  "class": "fan",
   "capabilities": [
-    "target_temperature",
-    "measure_temperature",
     "fan_mode",
-    "thermostat_mode",
     "onoff"
   ],
-  "capabilitiesOptions": {
-    "measure_temperature": { "decimals": 1},
-    "target_temperature": {  "decimals": 1 }
-  },
   "platforms": [
     "local"
   ],
@@ -28,8 +21,7 @@
   ],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
-    "large": "{{driverAssetsPath}}/images/large.png",
-    "xlarge": "{{driverAssetsPath}}/images/xlarge.png"
+    "large": "{{driverAssetsPath}}/images/large.png"
   },
   "pair": [
       {
