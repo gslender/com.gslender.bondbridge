@@ -4,7 +4,7 @@
   },
   "class": "heater",
   "capabilities": [
-    "fan_mode",
+    "fpfan_mode",
     "onoff"
   ],
   "platforms": [

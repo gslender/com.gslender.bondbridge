@@ -4,8 +4,7 @@
   },
   "class": "blinds",
   "capabilities": [
-    "onoff",
-    "windowcoverings_set"
+    "windowcoverings_state"
   ],
   "platforms": [
     "local"

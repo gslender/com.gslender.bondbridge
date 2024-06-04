@@ -9,56 +9,23 @@ class ShadeDevice extends Device {
    */
   async onInit() {
     this.log('ShadeDevice has been initialized');
-  }
-/*
-    this.registerCapabilityListener("onoff", async (value) => {
-      const zone = this.getThisZone();
-      if (zone == undefined) return;
 
-      if (value) {
-        await this.homey.app.sendSimpleiZoneCmd("ZoneMode", { Index: zone.Index, Mode: iZoneTypes.ZoneMode_Auto });
-      } else {
-        await this.homey.app.sendSimpleiZoneCmd("ZoneMode", { Index: zone.Index, Mode: iZoneTypes.ZoneMode_Close });
-      }
-      this.homey.app.pausePolling(500);
-    });
-
-    this.registerCapabilityListener("target_temperature", async (value) => {
-      const zone = this.getThisZone();
-      if (zone == undefined) return;
-      await this.homey.app.sendSimpleiZoneCmd("ZoneSetpoint", { Index: zone.Index, Setpoint: value * 100 });
-      this.homey.app.pausePolling(500);
-    });
-
-
-    this.registerCapabilityListener("zone_mode", async (value) => {
-      const zone = this.getThisZone();
-      if (zone == undefined) return;
-      await this.homey.app.sendSimpleiZoneCmd("ZoneMode", { Index: zone.Index, Mode: iZoneTypes.GetZoneModeValue(value) });
-      this.homey.app.pausePolling(500);
+    this.registerCapabilityListener("windowcoverings_state", async (value) => {
+      this.log('state',value);
+      if (value === 'up') {
+        await this.homey.app.sendBondAction(this.getData().id,"Open", {});
+      } 
+      if (value === 'idle') {
+        await this.homey.app.sendBondAction(this.getData().id,"Stop", {});
+      } 
+      if (value === 'down') {
+        await this.homey.app.sendBondAction(this.getData().id,"Close", {});
+      } 
     });
   }
 
-  getThisZone() {
-    if (this.homey.app.state?.ac?.zones?.[this.getData().id]) return this.homey.app.state.ac.zones[this.getData().id]
-    return undefined;
+  async updateCapabilities(state) {
+    this.setCapabilityValue('windowcoverings_state', state.data.open === 1 ? 'up' : 'down');
   }
-
-  async updateCapabilities() {
-    const zone = this.getThisZone();
-    if (zone == undefined) return;
-    this.setCapabilityValue('onoff', zone.Mode === iZoneTypes.ZoneMode_Auto || zone.Mode === iZoneTypes.ZoneMode_Open);
-    this.setCapabilityValue('measure_temperature', zone.Temp / 100);
-    this.setCapabilityValue('target_temperature', zone.Setpoint / 100);
-    this.setCapabilityValue('zone_mode', iZoneTypes.ZoneModeIdMap[zone.Mode]);
-    if (zone.BattVolt == iZoneTypes.BatteryLevel_Full) {
-      this.setCapabilityValue('measure_battery', 100);
-    } else if (zone.BattVolt == iZoneTypes.BatteryLevel_Half) {
-      this.setCapabilityValue('measure_battery', 50);
-    } else {
-      this.setCapabilityValue('measure_battery', 0);
-    }
-  }
-  */
 }
 module.exports = ShadeDevice;

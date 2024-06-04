@@ -79,29 +79,13 @@
     },
     {
       "name": {
-        "en": "Zones"
+        "en": "Fireplace"
       },
-      "energy": {
-        "batteries": [
-          "AAA",
-          "AAA"
-        ]
-      },
-      "class": "thermostat",
+      "class": "heater",
       "capabilities": [
-        "target_temperature",
-        "measure_temperature",
-        "onoff",
-        "measure_battery"
+        "fpfan_mode",
+        "onoff"
       ],
-      "capabilitiesOptions": {
-        "measure_temperature": {
-          "decimals": 1
-        },
-        "target_temperature": {
-          "decimals": 1
-        }
-      },
       "platforms": [
         "local"
       ],
@@ -110,8 +94,7 @@
       ],
       "images": {
         "small": "/drivers/fireplace/assets/images/small.png",
-        "large": "/drivers/fireplace/assets/images/large.png",
-        "xlarge": "/drivers/fireplace/assets/images/xlarge.png"
+        "large": "/drivers/fireplace/assets/images/large.png"
       },
       "pair": [
         {
@@ -130,29 +113,12 @@
     },
     {
       "name": {
-        "en": "Zones"
+        "en": "Shade"
       },
-      "energy": {
-        "batteries": [
-          "AAA",
-          "AAA"
-        ]
-      },
-      "class": "thermostat",
+      "class": "blinds",
       "capabilities": [
-        "target_temperature",
-        "measure_temperature",
-        "onoff",
-        "measure_battery"
+        "windowcoverings_state"
       ],
-      "capabilitiesOptions": {
-        "measure_temperature": {
-          "decimals": 1
-        },
-        "target_temperature": {
-          "decimals": 1
-        }
-      },
       "platforms": [
         "local"
       ],
@@ -161,8 +127,7 @@
       ],
       "images": {
         "small": "/drivers/shade/assets/images/small.png",
-        "large": "/drivers/shade/assets/images/large.png",
-        "xlarge": "/drivers/shade/assets/images/xlarge.png"
+        "large": "/drivers/shade/assets/images/large.png"
       },
       "pair": [
         {
@@ -185,6 +150,12 @@
       "type": "enum",
       "values": [
         {
+          "id": "off",
+          "title": {
+            "en": "Off"
+          }
+        },
+        {
           "id": "low",
           "title": {
             "en": "Low"
@@ -201,16 +172,46 @@
           "title": {
             "en": "High"
           }
+        }
+      ],
+      "title": {
+        "en": "Fan Speed"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "uiQuickAction": true
+    },
+    "fpfan_mode": {
+      "type": "enum",
+      "values": [
+        {
+          "id": "off",
+          "title": {
+            "en": "Off"
+          }
         },
         {
-          "id": "auto",
+          "id": "low",
           "title": {
-            "en": "Automatic"
+            "en": "Low"
+          }
+        },
+        {
+          "id": "medium",
+          "title": {
+            "en": "Medium"
+          }
+        },
+        {
+          "id": "high",
+          "title": {
+            "en": "High"
           }
         }
       ],
       "title": {
-        "en": "Fan mode"
+        "en": "Fireplace Fan Speed"
       },
       "getable": true,
       "setable": true,

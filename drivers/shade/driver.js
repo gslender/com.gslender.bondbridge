@@ -10,15 +10,18 @@ class iZoneZoneDriver extends Driver {
    * This should return an array with the data of devices that are available for pairing.
    */
   async onPairListDevices() {
+
     var devices = [];
-    // for (const keyid in this.homey.app.state.ac.zones) {
-    //   const zone = this.homey.app.state.ac.zones[keyid];
-    //   // don't include ZoneType_Constant
-    //   if (zone.ZoneType != iZoneTypes.ZoneType_Constant) {
-    //     const device = { name: zone.Name,  data: { id: keyid } };
-    //     devices.push(device);
-    //   }
-    // }
+    const fpDevices = await this.homey.app.getBondDevicesByType('MS');
+    
+    for (let i = 0; i < fpDevices.length; i++) {
+      const bondDevice = fpDevices[i];
+      const device = { 
+        name: bondDevice.name,
+        data: { id: bondDevice.id } 
+      };
+      devices.push(device);
+    }
 
     return devices;
   }

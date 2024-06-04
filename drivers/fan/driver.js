@@ -10,10 +10,18 @@ class FanDriver extends Driver {
    * This should return an array with the data of devices that are available for pairing.
    */
   async onPairListDevices() {
+
     var devices = [];
-    const acSysInfo = this.homey.app.state.ac.sysinfo;
-    const device = { data: { id: 'ac.sysInfo' } };
-    devices.push(device);
+    const fpDevices = await this.homey.app.getBondDevicesByType('CF');
+    
+    for (let i = 0; i < fpDevices.length; i++) {
+      const bondDevice = fpDevices[i];
+      const device = { 
+        name: bondDevice.name,
+        data: { id: bondDevice.id } 
+      };
+      devices.push(device);
+    }
 
     return devices;
   }
