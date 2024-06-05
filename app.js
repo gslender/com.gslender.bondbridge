@@ -3,6 +3,11 @@
 const Homey = require('homey');
 const { fetch } = require('undici');
 
+const VALID_TOKEN_STRING = 'Valid Token :-)';
+const OKAY_STRING = 'ok';
+const FAILED_STRING = 'failed';
+const INVALID_TOKEN_STRING = 'Token Invalid !!';
+
 function isEmptyOrUndefined(value) {
   return value === undefined || value === null || value === '';
 }
@@ -20,17 +25,29 @@ function isValidIPAddress(ipaddress) {
   return ipPattern.test(ipaddress);
 }
 
+function onSettingsChanged(key) {
+  if (key === 'bond.ipaddress' || key === 'bond.token') {
+    this.homey.app.ipaddress = this.homey.settings.get('bond.ipaddress');
+    this.homey.app.token = this.homey.settings.get('bond.token');
+    if (isValidIPAddress(this.homey.app.ipaddress)) {
+      this.homey.clearInterval(this.homey.app.pollTimer);
+      this.homey.app.continueApp();
+    }
+  }
+}
+
 class BondBridgeApp extends Homey.App {
 
   async onInit() {
     this.log(`${this.id} init...`);
 
     this.enableRespDebug = false;
+    this.pollTimer = {};
 
     // uncomment only for testing !!
     // this.homey.settings.unset('bond.ipaddress');
     // this.homey.settings.unset('bond.token');
-    this.enableRespDebug = true;
+    // this.enableRespDebug = true;
     // uncomment only for testing !!
 
     this.ipaddress = this.homey.settings.get('bond.ipaddress');
@@ -55,6 +72,8 @@ class BondBridgeApp extends Homey.App {
     } else {
       this.continueApp();
     }
+
+    this.homey.settings.on('set', onSettingsChanged);
   }
 
   handleDiscoveryResult(discoveryResult) {
@@ -69,13 +88,13 @@ class BondBridgeApp extends Homey.App {
 
     // getFirmware
     let resultFmw = await this.getBondFirmware();
-    if (resultFmw.status === "ok") {
+    if (resultFmw.status === OKAY_STRING) {
       this.state.firmware = resultFmw.fw_ver;
       this.log(`getFirmware=${resultFmw.fw_ver} token=${this.token}`);
       this.pollState();
-      this.homey.setInterval(()=> {
+      this.pollTimer = this.homey.setInterval(() => {
         this.pollState();
-      },5000);
+      }, 5000);
     }
   }
 
@@ -86,7 +105,7 @@ class BondBridgeApp extends Homey.App {
     let respData = {};
 
     try {
-      respData.status = "failed";
+      respData.status = FAILED_STRING;
       const response = await fetch(uri, {
         method: 'GET',
         headers: {
@@ -96,10 +115,10 @@ class BondBridgeApp extends Homey.App {
       const responseData = await response.json();
 
       respData = responseData;
-      if (respData.hasOwnProperty("fw_ver")) respData.status = "ok";
+      if (respData.hasOwnProperty("fw_ver")) respData.status = OKAY_STRING;
     } catch (e) {
       if (this.enableRespDebug) this.log(`getBondFirmware() ERROR: ${e}`);
-      respData.status = "failed: " + e;
+      respData.status = FAILED_STRING + e;
     }
     return respData;
   }
@@ -111,7 +130,7 @@ class BondBridgeApp extends Homey.App {
     let respData = {};
 
     try {
-      respData.status = "failed";
+      respData.status = FAILED_STRING;
       const response = await fetch(uri, {
         method: 'GET',
         headers: {
@@ -122,7 +141,7 @@ class BondBridgeApp extends Homey.App {
       if (response.status == 200) {
         const responseData = await response.json();
         if (responseData.hasOwnProperty("_")) {
-          respData.status = "Valid :-)";
+          respData.status = VALID_TOKEN_STRING;
           respData.data = [];
           for (const key in responseData) {
             if (key !== "_" && key !== "__") {
@@ -133,7 +152,9 @@ class BondBridgeApp extends Homey.App {
       }
 
       if (response.status == 401) {
-        respData.status = "Incorrect Token !?";
+        respData.status = INVALID_TOKEN_STRING;
+        this.homey.clearInterval(this.pollTimer);
+        this.log(`Incorrect Token !?`);
       }
     } catch (e) {
       if (this.enableRespDebug) this.log(`getBondDevices() ERROR: ${e}`);
@@ -148,7 +169,7 @@ class BondBridgeApp extends Homey.App {
     let respData = {};
 
     try {
-      respData.status = "failed";
+      respData.status = FAILED_STRING;
       const response = await fetch(uri, {
         method: 'GET',
         headers: {
@@ -158,13 +179,15 @@ class BondBridgeApp extends Homey.App {
       });
       respData.data = {};
       if (response.status == 200) {
-        respData.status = "Valid :-)";
+        respData.status = VALID_TOKEN_STRING;
         respData.data = await response.json();
         respData.data.id = deviceID;
       }
 
       if (response.status == 401) {
-        respData.status = "Incorrect Token !?";
+        respData.status = INVALID_TOKEN_STRING;
+        this.homey.clearInterval(this.pollTimer);
+        this.log(`Incorrect Token !?`);
       }
     } catch (e) {
       if (this.enableRespDebug) this.log(`getBondDevice() ERROR: ${e}`);
@@ -179,7 +202,7 @@ class BondBridgeApp extends Homey.App {
     let respData = {};
 
     try {
-      respData.status = "failed";
+      respData.status = FAILED_STRING;
       const response = await fetch(uri, {
         method: 'GET',
         headers: {
@@ -189,12 +212,14 @@ class BondBridgeApp extends Homey.App {
       });
       respData.data = {};
       if (response.status == 200) {
-        respData.status = "ok";
+        respData.status = OKAY_STRING;
         respData.data = await response.json();
       }
 
       if (response.status == 401) {
-        respData.status = "Incorrect Token !?";
+        respData.status = INVALID_TOKEN_STRING;
+        this.homey.clearInterval(this.pollTimer);
+        this.log(`Incorrect Token !?`);
       }
     } catch (e) {
       if (this.enableRespDebug) this.log(`getBondDeviceState() ERROR: ${e}`);
@@ -225,7 +250,7 @@ class BondBridgeApp extends Homey.App {
     let respData = {};
 
     try {
-      respData.status = "failed";
+      respData.status = FAILED_STRING;
       const response = await fetch(uri, {
         method: 'PUT',
         headers: {
@@ -236,12 +261,14 @@ class BondBridgeApp extends Homey.App {
       });
       respData.data = {};
       if (response.status == 200) {
-        respData.status = "ok";
+        respData.status = OKAY_STRING;
         respData.data = await response.json();
       }
 
       if (response.status == 401) {
-        respData.status = "Incorrect Token !?";
+        respData.status = INVALID_TOKEN_STRING;
+        this.homey.clearInterval(this.pollTimer);
+        this.log(`Incorrect Token !?`);
       }
     } catch (e) {
       if (this.enableRespDebug) this.log(`sendBondAction() ERROR: ${e}`);
@@ -258,7 +285,7 @@ class BondBridgeApp extends Homey.App {
       for (const device of devices) {
         const deviceID = device.getData().id;
         const state = await this.getBondDeviceState(deviceID);
-        device.updateCapabilities(state);
+        if (state.status === OKAY_STRING) device.updateCapabilities(state);
       }
     }
   }
@@ -268,6 +295,10 @@ class BondBridgeApp extends Homey.App {
     this.token = this.homey.settings.get('bond.token');
     return new Promise(async (resolve, reject) => {
       const response = await this.getBondDevices();
+      if (response.status === VALID_TOKEN_STRING) {
+        this.homey.clearInterval(this.pollTimer);
+        this.continueApp();
+      }
       this.log('response=', response);
       resolve(response.status);
     });

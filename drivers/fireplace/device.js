@@ -2,6 +2,10 @@
 
 const { Device } = require('homey');
 
+function hasProperties(obj, props) {
+  return props.every(prop => obj.hasOwnProperty(prop));
+}
+
 class FireplaceDevice extends Device {
 
   /**
@@ -41,13 +45,15 @@ class FireplaceDevice extends Device {
   }
 
   async updateCapabilities(state) {
-    this.setCapabilityValue('onoff', state.data.fpfan_power === 1);
-    if (state.data.fpfan_speed == 100) {
-      this.setCapabilityValue('fpfan_mode', 'high');
-    } else if (state.data.fpfan_speed == 50) {
-      this.setCapabilityValue('fpfan_mode', 'medium');
-    } else {
-      this.setCapabilityValue('fpfan_mode', 'low');
+    if (hasProperties(state,["fpfan_power","fpfan_mode"])) {
+      this.setCapabilityValue('onoff', state.data.fpfan_power === 1);
+      if (state.data.fpfan_speed == 100) {
+        this.setCapabilityValue('fpfan_mode', 'high');
+      } else if (state.data.fpfan_speed == 50) {
+        this.setCapabilityValue('fpfan_mode', 'medium');
+      } else {
+        this.setCapabilityValue('fpfan_mode', 'low');
+      }
     }
   }
 }

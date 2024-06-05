@@ -3,6 +3,10 @@
 const { Device } = require('homey');
 const iZoneTypes = require('../../izonetypes');
 
+function hasProperties(obj, props) {
+  return props.every(prop => obj.hasOwnProperty(prop));
+}
+
 class FanDevice extends Device {
 
   /**
@@ -42,14 +46,16 @@ class FanDevice extends Device {
     });
   }
 
-  async updateCapabilities(state) {
-    this.setCapabilityValue('onoff', state.data.power === 1);
-    if (state.data.speed == 100) {
-      this.setCapabilityValue('fan_mode', 'high');
-    } else if (state.data.speed == 50) {
-      this.setCapabilityValue('fan_mode', 'medium');
-    } else {
-      this.setCapabilityValue('fan_mode', 'low');
+  async updateCapabilities(state) {    
+    if (hasProperties(state,["power","speed"])) {
+      this.setCapabilityValue('onoff', state.data.power === 1);
+      if (state.data.speed == 100) {
+        this.setCapabilityValue('fan_mode', 'high');
+      } else if (state.data.speed == 50) {
+        this.setCapabilityValue('fan_mode', 'medium');
+      } else {
+        this.setCapabilityValue('fan_mode', 'low');
+      }
     }
   }
 }

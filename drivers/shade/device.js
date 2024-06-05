@@ -2,6 +2,10 @@
 
 const { Device } = require('homey');
 
+function hasProperties(obj, props) {
+  return props.every(prop => obj.hasOwnProperty(prop));
+}
+
 class ShadeDevice extends Device {
 
   /**
@@ -25,7 +29,9 @@ class ShadeDevice extends Device {
   }
 
   async updateCapabilities(state) {
-    this.setCapabilityValue('windowcoverings_state', state.data.open === 1 ? 'up' : 'down');
+    if (hasProperties(state,["open"])) {
+      this.setCapabilityValue('windowcoverings_state', state.data.open === 1 ? 'up' : 'down');
+    }
   }
 }
 module.exports = ShadeDevice;
