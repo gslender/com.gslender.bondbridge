@@ -1,6 +1,6 @@
 {
   "id": "com.gslender.bondbridge",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#2f0fbb",
@@ -11,7 +11,7 @@
     "en": "Bond Bridge Integration"
   },
   "description": {
-    "en": "Integrates to Bond Bridge connected range of RF ceiling fans, fireplaces and shades supported devices."
+    "en": "Connect Homey to the Bond Bridge range of supported devices."
   },
   "category": [
     "climate"
