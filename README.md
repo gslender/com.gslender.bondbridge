@@ -1,4 +1,4 @@
 # com.gslender.bondbridge
-Homey App for the Bond Bridge connecting a range of RF ceiling fans, fireplaces and shades supported devices
+This Homey App connects locally to the Bond Bridge and allows control of the RF based ceiling fans, fireplaces and shade devices that are configured within the Bond Bridge App.
 
-* Use the Local Token that's provided in the Bond Bridge Device Settings, Advanced Settings section to authorise and allow the Homey App to connect.
+Use the Local Token that's provided in the Bond Bridge Device Settings, Advanced Settings section to authorise and allow the Homey App to connect.
