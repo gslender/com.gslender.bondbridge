@@ -1,7 +1,6 @@
 'use strict';
 
 const { Device } = require('homey');
-const iZoneTypes = require('../../izonetypes');
 
 function hasProperties(obj, props) {
   return props.every(prop => obj.hasOwnProperty(prop));
