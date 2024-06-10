@@ -47,7 +47,7 @@ class BondBridgeApp extends Homey.App {
     // uncomment only for testing !!
     // this.homey.settings.unset('bond.ipaddress');
     // this.homey.settings.unset('bond.token');
-    // this.enableRespDebug = true;
+    this.enableRespDebug = true;
     // uncomment only for testing !!
 
     this.ipaddress = this.homey.settings.get('bond.ipaddress');
