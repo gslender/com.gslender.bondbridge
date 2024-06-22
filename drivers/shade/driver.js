@@ -12,7 +12,7 @@ class iZoneZoneDriver extends Driver {
   async onPairListDevices() {
 
     var devices = [];
-    const fpDevices = await this.homey.app.getBondDevicesByType('MS');
+    const fpDevices = await this.homey.app.bond.getBondDevicesByType('MS');
     
     for (let i = 0; i < fpDevices.length; i++) {
       const bondDevice = fpDevices[i];

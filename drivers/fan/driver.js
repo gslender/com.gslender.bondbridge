@@ -12,13 +12,13 @@ class FanDriver extends Driver {
   async onPairListDevices() {
 
     var devices = [];
-    const fpDevices = await this.homey.app.getBondDevicesByType('CF');
+    const cfDevices = await this.homey.app.bond.getBondDevicesByType('CF');
     
-    for (let i = 0; i < fpDevices.length; i++) {
-      const bondDevice = fpDevices[i];
+    for (let i = 0; i < cfDevices.length; i++) {
+      const bondDevice = cfDevices[i];
       const device = { 
         name: bondDevice.name,
-        data: { id: bondDevice.id } 
+        data: { id: bondDevice.id },
       };
       devices.push(device);
     }

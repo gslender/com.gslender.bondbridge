@@ -10,7 +10,6 @@
   },
   "class": "fan",
   "capabilities": [
-    "fan_mode",
     "onoff"
   ],
   "platforms": [

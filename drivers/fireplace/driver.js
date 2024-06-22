@@ -12,7 +12,7 @@ class FireplaceDriver extends Driver {
   async onPairListDevices() {
 
     var devices = [];
-    const fpDevices = await this.homey.app.getBondDevicesByType('FP');
+    const fpDevices = await this.homey.app.bond.getBondDevicesByType('FP');
 
     for (let i = 0; i < fpDevices.length; i++) {
       const bondDevice = fpDevices[i];

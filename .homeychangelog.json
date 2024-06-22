@@ -16,5 +16,8 @@
   },
   "1.0.6": {
     "en": "Fixed fan bug"
+  },
+  "1.0.7": {
+    "en": "migrate to bond shared api"
   }
 }
