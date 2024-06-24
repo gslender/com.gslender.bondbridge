@@ -3,6 +3,7 @@
 const { Device } = require('homey');
 
 function hasProperties(obj, props) {
+  if (!obj) return false;
   return props.every(prop => obj.hasOwnProperty(prop));
 }
 
@@ -46,7 +47,7 @@ class FireplaceDevice extends Device {
   }
 
   async updateCapabilityValues(state) {
-    if (hasProperties(state,["fpfan_power","fpfan_mode"])) {
+    if (hasProperties(state.data,["fpfan_power","fpfan_mode"])) {
       this.setCapabilityValue('onoff', state.data.fpfan_power === 1);
       if (state.data.fpfan_speed == 100) {
         this.setCapabilityValue('fpfan_mode', 'high');

@@ -3,6 +3,7 @@
 const { Device } = require('homey');
 
 function hasProperties(obj, props) {
+  if (!obj) return false;
   return props.every(prop => obj.hasOwnProperty(prop));
 }
 
@@ -30,7 +31,7 @@ class ShadeDevice extends Device {
   }
 
   async updateCapabilityValues(state) {
-    if (hasProperties(state,["open"])) {
+    if (hasProperties(state.data,["open"])) {
       this.setCapabilityValue('windowcoverings_state', state.data.open === 1 ? 'up' : 'down');
     }
   }

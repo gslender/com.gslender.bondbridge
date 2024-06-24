@@ -19,5 +19,8 @@
   },
   "1.0.7": {
     "en": "migrate to bond shared api"
+  },
+  "1.0.8": {
+    "en": "added fan direction"
   }
 }
