@@ -102,6 +102,8 @@ class FanDevice extends Device {
   }
   
   async updateCapabilityValues(state) {
+    this.props = this.props || {};  
+    this.props.data = this.props.data || {}; 
     
     if (hasProperties(this.props.data, ["feature_light"]) && this.props.data.feature_light) {
       // fan with light   
@@ -121,12 +123,12 @@ class FanDevice extends Device {
       }
     }
 
-    if (hasProperties(state.data, ["direction"])) {
-      this.setCapabilityValue('fan_direction', state.data.direction);
+    if (hasProperties(state.data, ["direction"]) && this.hasCapability('fan_direction')) {
+      this.setCapabilityValue('fan_direction', `${state.data.direction}`);
     }
 
     if (hasProperties(state.data, ["speed"])) {
-      if (hasProperties(this.props.data, ["max_speed"])) {
+      if (hasProperties(this.props.data, ["max_speed"]) && this.hasCapability('fan_speed')) {
         // fan with max_speed   
         this.setCapabilityValue('fan_speed', state.data.speed);
       } else {  
