@@ -28,5 +28,11 @@
   },
   "1.0.10": {
     "en": "Further bug fixes"
+  },
+  "1.0.11": {
+    "en": "Shared Bond api optimisations"
+  },
+  "1.0.12": {
+    "en": "Minor bugs"
   }
 }

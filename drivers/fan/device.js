@@ -34,7 +34,7 @@ class FanDevice extends Device {
 
       if (hasProperties(this.props.data, ["feature_brightness"]) && this.props.data.feature_brightness) {
         // fan with light that dims
-        this.addCapability("dim");
+        await this.addCapability("dim");
         this.registerCapabilityListener("dim", async (value) => {
           await this.bond.sendBondAction(this.getData().id, "SetBrightness", { "argument": value * 100 });
         });
@@ -55,7 +55,7 @@ class FanDevice extends Device {
 
     if (hasProperties(this.props.data, ["max_speed"])) {
       // fan with max_speed 
-      this.addCapability("fan_speed");
+      await this.addCapability("fan_speed");
       this.setCapabilityOptions("fan_speed", {
         min: 0,
         max: this.props.data.max_speed
@@ -71,7 +71,7 @@ class FanDevice extends Device {
       this.removeCapability("fan_mode");
     } else {
       // fan without any max_speed (so assuming 3 speed mode)
-      this.addCapability("fan_mode");
+      await this.addCapability("fan_mode");
       this.removeCapability("fan_speed");
       this.registerCapabilityListener("fan_mode", async (value) => {
         if (value === 'off') {
@@ -95,7 +95,7 @@ class FanDevice extends Device {
       });
     }
 
-    this.addCapability("fan_direction");    
+    await this.addCapability("fan_direction");    
     this.registerCapabilityListener("fan_direction", async (value) => {  
       await this.bond.sendBondAction(this.getData().id, "SetDirection", { "argument": Number(value) });      
     });
@@ -123,16 +123,25 @@ class FanDevice extends Device {
       }
     }
 
-    if (hasProperties(state.data, ["direction"]) && this.hasCapability('fan_direction')) {
+    if (hasProperties(state.data, ["direction"])) {
+      if (!this.hasCapability('fan_direction')) {
+        await this.addCapability('fan_direction');
+      }
       this.setCapabilityValue('fan_direction', `${state.data.direction}`);
     }
 
     if (hasProperties(state.data, ["speed"])) {
-      if (hasProperties(this.props.data, ["max_speed"]) && this.hasCapability('fan_speed')) {
+      if (hasProperties(this.props.data, ["max_speed"])) {
         // fan with max_speed   
+        if (!this.hasCapability('fan_speed')) {
+          await this.addCapability('fan_speed');
+        }
         this.setCapabilityValue('fan_speed', state.data.speed);
       } else {  
         // fan without any max_speed (so assuming 3 speed mode)
+        if (!this.hasCapability('fan_mode')) {
+          await this.addCapability('fan_mode');
+        }
         if (state.data.speed == 100) {
           this.setCapabilityValue('fan_mode', 'high');
         } else if (state.data.speed == 50) {
@@ -143,8 +152,6 @@ class FanDevice extends Device {
       }
     }
   }
-
 }
-
 
 module.exports = FanDevice;
