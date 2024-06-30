@@ -34,6 +34,14 @@
                 <label class="homey-form-label" for="token">Token</label>
                 <input class="homey-form-input" id="token" type="text" value="" />
             </div>
+            <label class="homey-form-label" for="select-polling">Polling Interval</label>
+            <select class="homey-form-select" name="select-polling" id="select-polling">
+                <option value="15000">15 Seconds</option>
+                <option value="30000">30 Seconds</option>
+                <option value="60000">1 Minute</option>
+                <option value="120000">2 Minutes</option>
+                <option value="300000">5 Minutes</option>
+            </select>
 
         </fieldset>
 
@@ -45,13 +53,18 @@
         var tokenElement = document.getElementById('token');
         var statusElement = document.getElementById('status');
         var checksettingsElement = document.getElementById('checksettings');
+        var pollingElement = document.getElementById('select-polling');
         var saveElement = document.getElementById('save');
 
-        function setBondValues() {
-            Homey.set('bond.ipaddress', ipaddressElement.value, function (err) {
+        async function setBondValues() {
+            await Homey.set('bond.ipaddress', ipaddressElement.value, function (err) {
                 if (err) return Homey.alert(err);
             });
-            Homey.set('bond.token', tokenElement.value, function (err) {
+            await Homey.set('bond.token', tokenElement.value, function (err) {
+                if (err) return Homey.alert(err);
+            });
+
+            await Homey.set('bond.polling', pollingElement.value, function (err) {
                 if (err) return Homey.alert(err);
             });
         }
@@ -72,10 +85,23 @@
                 tokenElement.value = token;
             });
 
+            Homey.get('bond.polling', function (err, polling) {
+                if (err) return Homey.alert(err);
+                if (polling === null || polling === undefined || polling === '') {
+                    polling = '15000';
+                }
+                pollingElement.value = polling;
+            });
 
-            checksettingsElement.addEventListener('click', function (e) {
-                setBondValues();
+            Homey.on("settingsChanged", function (state) {
+                document.getElementById('save').classList.remove("is-loading");
+            });
+
+            checksettingsElement.addEventListener('click', async function (e) {
+                document.getElementById('checksettings').classList.add("is-loading");
+                await setBondValues();
                 Homey.api('GET', '/checkStatus/', null,(err, result) => {
+                        document.getElementById('checksettings').classList.remove("is-loading");
                         if (err) {
                             return Homey.alert(err);
                             statusElement.innerText = "Failed!";
@@ -86,8 +112,9 @@
                     });
             });
 
-            saveElement.addEventListener('click', function (e) {
-                setBondValues();
+            saveElement.addEventListener('click', async function (e) {
+                document.getElementById('save').classList.add("is-loading");
+                await setBondValues();
                 return Homey.alert("Settings Saved");
             });
         }
