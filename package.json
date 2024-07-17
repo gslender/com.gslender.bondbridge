@@ -5,7 +5,7 @@
   "scripts": {},
   "devDependencies": {
     "@types/homey": "npm:homey-apps-sdk-v3-types@^0.3.6",
-    "homey": "^3.3.1"
+    "homey": "^3.5.0"
   },
   "dependencies": {
     "undici": "^6.19.2"

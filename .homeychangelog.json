@@ -37,5 +37,8 @@
   },
   "1.1.0": {
     "en": "Added polling interval by app settings"
+  },
+  "1.1.1": {
+    "en": "Tweak the settings page"
   }
 }
