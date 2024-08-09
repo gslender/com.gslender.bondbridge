@@ -32,7 +32,7 @@ class ShadeDevice extends Device {
 
   async updateCapabilityValues(state) {
     if (hasProperties(state.data,["open"])) {
-      this.setCapabilityValue('windowcoverings_state', state.data.open === 1 ? 'up' : 'down');
+      await this.setCapabilityValue('windowcoverings_state', state.data.open === 1 ? 'up' : 'down');
     }
   }
 }

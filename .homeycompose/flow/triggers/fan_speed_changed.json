@@ -1,0 +1,27 @@
+{
+    "title": {
+      "en": "Fan speed has changed"
+    },
+    "titleFormatted": {
+      "en": "The fan speed has changed."
+    },
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fan"
+        }
+    ],
+    "tokens": [
+      {
+        "type": "string",
+        "name": "fan_speed",
+        "title": {
+          "en": "Fan speed"
+        },
+        "example": {
+          "en": "3"
+        }
+      }
+    ]
+  }

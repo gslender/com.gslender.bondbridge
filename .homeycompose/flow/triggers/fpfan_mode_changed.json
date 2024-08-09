@@ -1,0 +1,27 @@
+{
+    "title": {
+      "en": "Fireplace fan mode has changed"
+    },
+    "titleFormatted": {
+      "en": "The fireplace fan mode has changed."
+    },
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fireplace"
+        }
+    ],
+    "tokens": [
+      {
+        "type": "string",
+        "name": "fpfan_mode",
+        "title": {
+          "en": "Fireplace fan mode"
+        },
+        "example": {
+          "en": "Low"
+        }
+      }
+    ]
+  }

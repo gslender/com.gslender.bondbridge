@@ -5,17 +5,32 @@ const Bond = require('./lib/bond');
 
 class BondBridgeApp extends Homey.App {
 
+  newBondInstance() {
+    return new Bond(
+      this.homey.settings.get('bond.ipaddress'),
+      this.homey.settings.get('bond.token'),
+      this.log
+    );
+  }
+
   async onInit() {
     this.log(`${this.id} init...`);
 
-    this.timeoutId = {};
+    this.homey.settings.on('set', this.onSettingsChanged.bind(this));
 
+    this.timeoutId = {};
     this.state = {};
     this.state.devices = {};
 
-    this.bond = this.createBondAPI();
+    this.bond = this.newBondInstance();
 
-    if (!this.bond.isIpAddressValid()) {
+    let bondIpAddressInvalid = true;
+
+    if (this.bond.isIpAddressValid()) {
+      bondIpAddressInvalid = await this.checkStatus();
+    }
+
+    if (bondIpAddressInvalid) {
 
       const discoveryStrategy = this.homey.discovery.getStrategy("bond");
 
@@ -29,24 +44,31 @@ class BondBridgeApp extends Homey.App {
       discoveryStrategy.on("result", discoveryResult => {
         this.handleDiscoveryResult(discoveryResult);
       });
-    } else {
-      this.startPolling();
-    }
-
-    this.homey.settings.on('set', this.onSettingsChanged.bind(this));
+    } 
   }
 
-  createBondAPI() {
-    return new Bond(
-      this.homey.settings.get('bond.ipaddress'),
-      this.homey.settings.get('bond.token'),
-      this.log
-    );
+  async checkStatus() {
+    this.bond = this.newBondInstance();
+    return new Promise(async (resolve, reject) => {
+      const response = await this.bond.getBondDevices();
+      if (response.status === Bond.VALID_TOKEN) {
+        this.homey.clearInterval(this.timeoutId);
+        this.homey.setTimeout(async () => {
+          this.startPolling();
+        }, this.getRandomNumber(750, 1750));
+      }
+      this.log('response=', response);
+      resolve(response.status);
+    });
+  }
+
+  getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   onSettingsChanged(key) {
     if (key === 'bond.polling' || key === 'bond.ipaddress' || key === 'bond.token') {
-      this.bond = this.createBondAPI();
+      this.bond = this.newBondInstance();
       this.homey.clearInterval(this.timeoutId);
       this.homey.setTimeout(async () => {
         this.startPolling();
@@ -58,7 +80,7 @@ class BondBridgeApp extends Homey.App {
   handleDiscoveryResult(discoveryResult) {
     this.log("handleDiscoveryResult.address:", discoveryResult.address);
     this.homey.settings.set('bond.ipaddress', discoveryResult.address);
-    this.bond = this.createBondAPI();
+    this.bond = this.newBondInstance();
     this.homey.clearInterval(this.timeoutId);
     this.startPolling();
   }
@@ -66,11 +88,11 @@ class BondBridgeApp extends Homey.App {
   async startPolling() {
     let pollingInterval = this.homey.settings.get('bond.polling');
     if (isNaN(pollingInterval) || pollingInterval === null || pollingInterval === undefined) {
-        pollingInterval = 15000;
+      pollingInterval = 15000;
     } else {
-        pollingInterval = Number(pollingInterval);
+      pollingInterval = Number(pollingInterval);
     }
-    this.log(`${this.id} polling every ${pollingInterval/1000}sec started...`);
+    this.log(`${this.id} polling every ${pollingInterval / 1000}sec started...`);
 
     // getFirmware
     let resultFmw = await this.bond.getBondFirmware();
@@ -95,19 +117,6 @@ class BondBridgeApp extends Homey.App {
         if (state.status === Bond.OKAY) device.updateCapabilityValues(state);
       }
     }
-  }
-
-  async checkStatus() {
-    this.bond = this.createBondAPI();
-    return new Promise(async (resolve, reject) => {
-      const response = await this.bond.getBondDevices();
-      if (response.status === Bond.VALID_TOKEN) {
-        this.homey.clearInterval(this.timeoutId);
-        this.startPolling();
-      }
-      this.log('response=', response);
-      resolve(response.status);
-    });
   }
 }
 

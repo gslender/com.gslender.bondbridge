@@ -40,5 +40,8 @@
   },
   "1.1.1": {
     "en": "Tweak the settings page"
+  },
+  "1.1.3": {
+    "en": "Triggers and startup tweaks"
   }
 }

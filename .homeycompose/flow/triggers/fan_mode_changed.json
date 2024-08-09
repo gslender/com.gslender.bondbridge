@@ -1,0 +1,27 @@
+{
+    "title": {
+      "en": "Fan mode has changed"
+    },
+    "titleFormatted": {
+      "en": "The fan mode has changed."
+    },
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fan"
+        }
+    ],
+    "tokens": [
+      {
+        "type": "string",
+        "name": "fan_mode",
+        "title": {
+          "en": "Fan mode"
+        },
+        "example": {
+          "en": "Low"
+        }
+      }
+    ]
+  }
