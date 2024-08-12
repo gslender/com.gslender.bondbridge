@@ -1,0 +1,20 @@
+{
+  "settings": {
+    "title": "Instellingen",
+    "checkSettings": "Controleer Instellingen...",
+    "status": "Status",
+    "ipaddress": "IP-adres",
+    "token": "Token",
+    "pollingInterval": "Poll-interval",
+    "15Seconds": "15 Seconden",
+    "30Seconds": "30 Seconden",
+    "1Minute": "1 Minuut",
+    "2Minutes": "2 Minuten",
+    "5Minutes": "5 Minuten",
+    "saveChanges": "Wijzigingen Opslaan",
+    "failed": "Mislukt!",
+    "validToken": "Geldig IP-adres en Token",
+    "invalidToken": "Ongeldig IP-adres of Token !?",
+    "saved": "Instellingen Opgeslagen"
+  }
+}

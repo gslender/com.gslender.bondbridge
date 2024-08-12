@@ -1,0 +1,3 @@
+Esta aplicación de Homey se conecta localmente al Bond Bridge y permite el control de ventiladores de techo, chimeneas y dispositivos de sombra basados en RF que están configurados en la aplicación Bond Bridge.
+
+Utiliza el Token Local que se encuentra en la sección de Configuración Avanzada en la Configuración del Dispositivo Bond Bridge para autorizar y permitir que la aplicación Homey se conecte.

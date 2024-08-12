@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.gslender.bondbridge",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#2f0fbb",
@@ -9,10 +9,32 @@
     "local"
   ],
   "name": {
-    "en": "Bond Bridge Integration"
+    "en": "Bond Bridge Integration",
+    "nl": "Bond Bridge-integratie",
+    "da": "Bond Bridge-integration",
+    "de": "Bond Bridge-Integration",
+    "es": "Integración de Bond Bridge",
+    "fr": "Intégration Bond Bridge",
+    "it": "Integrazione Bond Bridge",
+    "no": "Bond Bridge-integrasjon",
+    "sv": "Bond Bridge-integration",
+    "pl": "Integracja z Bond Bridge",
+    "ru": "Интеграция Bond Bridge",
+    "ko": "Bond Bridge 통합"
   },
   "description": {
-    "en": "Add Wi-Fi to ceiling fans, fireplaces and shades."
+    "en": "Add Wi-Fi to ceiling fans, fireplaces and shades.",
+    "nl": "Voeg Wi-Fi toe aan plafondventilatoren, open haarden en zonwering.",
+    "da": "Tilføj Wi-Fi til loftsventilatorer, pejse og skyggelæggere.",
+    "de": "Fügen Sie Wi-Fi zu Deckenventilatoren, Kaminen und Jalousien hinzu.",
+    "es": "Agrega Wi-Fi a ventiladores de techo, chimeneas y persianas.",
+    "fr": "Ajoutez le Wi-Fi aux ventilateurs de plafond, cheminées et stores.",
+    "it": "Aggiungi il Wi-Fi a ventilatori da soffitto, caminetti e tende.",
+    "no": "Legg til Wi-Fi til takvifter, peiser og persienner.",
+    "sv": "Lägg till Wi-Fi till takfläktar, eldstäder och persienner.",
+    "pl": "Dodaj Wi-Fi do wentylatorów sufitowych, kominków i rolet.",
+    "ru": "Добавьте Wi-Fi к потолочным вентиляторам, каминам и шторам.",
+    "ko": "천장 선풍기, 벽난로 및 블라인드에 Wi-Fi를 추가하세요."
   },
   "category": [
     "climate"
@@ -40,10 +62,32 @@
     "triggers": [
       {
         "title": {
-          "en": "Fan mode has changed"
+          "en": "Fan mode has changed",
+          "nl": "Ventilatormodus is veranderd",
+          "da": "Ventilatortilstanden er ændret",
+          "de": "Lüftermodus hat sich geändert",
+          "es": "El modo del ventilador ha cambiado",
+          "fr": "Le mode du ventilateur a changé",
+          "it": "La modalità della ventola è cambiata",
+          "no": "Viftemodus har endret seg",
+          "sv": "Fläktläget har ändrats",
+          "pl": "Tryb wentylatora został zmieniony",
+          "ru": "Режим вентилятора изменен",
+          "ko": "팬 모드가 변경되었습니다"
         },
         "titleFormatted": {
-          "en": "The fan mode has changed."
+          "en": "The fan mode has changed.",
+          "nl": "De ventilatormodus is veranderd.",
+          "da": "Ventilatortilstanden er blevet ændret.",
+          "de": "Der Lüftermodus hat sich geändert.",
+          "es": "El modo del ventilador ha cambiado.",
+          "fr": "Le mode du ventilateur a changé.",
+          "it": "La modalità della ventola è cambiata.",
+          "no": "Viftemodus har endret seg.",
+          "sv": "Fläktläget har ändrats.",
+          "pl": "Tryb wentylatora został zmieniony.",
+          "ru": "Режим вентилятора изменился.",
+          "ko": "팬 모드가 변경되었습니다."
         },
         "args": [
           {
@@ -57,10 +101,32 @@
             "type": "string",
             "name": "fan_mode",
             "title": {
-              "en": "Fan mode"
+              "en": "Fan mode",
+              "nl": "Ventilatormodus",
+              "da": "Ventilatortilstand",
+              "de": "Lüftermodus",
+              "es": "Modo del ventilador",
+              "fr": "Mode du ventilateur",
+              "it": "Modalità ventola",
+              "no": "Viftemodus",
+              "sv": "Fläktläge",
+              "pl": "Tryb wentylatora",
+              "ru": "Режим вентилятора",
+              "ko": "팬 모드"
             },
             "example": {
-              "en": "Low"
+              "en": "Low",
+              "nl": "Laag",
+              "da": "Lav",
+              "de": "Niedrig",
+              "es": "Bajo",
+              "fr": "Bas",
+              "it": "Basso",
+              "no": "Lav",
+              "sv": "Låg",
+              "pl": "Niski",
+              "ru": "Низкий",
+              "ko": "저"
             }
           }
         ],
@@ -68,10 +134,32 @@
       },
       {
         "title": {
-          "en": "Fan speed has changed"
+          "en": "Fan speed has changed",
+          "nl": "Ventilatorsnelheid is veranderd",
+          "da": "Blæserhastighed er ændret",
+          "de": "Die Lüftergeschwindigkeit hat sich geändert",
+          "es": "La velocidad del ventilador ha cambiado",
+          "fr": "La vitesse du ventilateur a changé",
+          "it": "La velocità della ventola è cambiata",
+          "no": "Viftehastigheten har endret seg",
+          "sv": "Fläkthastigheten har ändrats",
+          "pl": "Prędkość wentylatora została zmieniona",
+          "ru": "Скорость вентилятора изменилась",
+          "ko": "팬 속도가 변경되었습니다"
         },
         "titleFormatted": {
-          "en": "The fan speed has changed."
+          "en": "The fan speed has changed.",
+          "nl": "De ventilatorsnelheid is veranderd.",
+          "da": "Blæserhastigheden er ændret.",
+          "de": "Die Lüftergeschwindigkeit hat sich geändert.",
+          "es": "La velocidad del ventilador ha cambiado.",
+          "fr": "La vitesse du ventilateur a changé.",
+          "it": "La velocità della ventola è cambiata.",
+          "no": "Viftehastigheten har endret seg.",
+          "sv": "Fläkthastigheten har ändrats.",
+          "pl": "Prędkość wentylatora została zmieniona.",
+          "ru": "Скорость вентилятора изменилась.",
+          "ko": "팬 속도가 변경되었습니다."
         },
         "args": [
           {
@@ -85,10 +173,32 @@
             "type": "string",
             "name": "fan_speed",
             "title": {
-              "en": "Fan speed"
+              "en": "Fan speed",
+              "nl": "Ventilatorsnelheid",
+              "da": "Blæserhastighed",
+              "de": "Lüftergeschwindigkeit",
+              "es": "Velocidad del ventilador",
+              "fr": "Vitesse du ventilateur",
+              "it": "Velocità della ventola",
+              "no": "Viftehastighet",
+              "sv": "Fläkthastighet",
+              "pl": "Prędkość wentylatora",
+              "ru": "Скорость вентилятора",
+              "ko": "팬 속도"
             },
             "example": {
-              "en": "3"
+              "en": "3",
+              "nl": "3",
+              "da": "3",
+              "de": "3",
+              "es": "3",
+              "fr": "3",
+              "it": "3",
+              "no": "3",
+              "sv": "3",
+              "pl": "3",
+              "ru": "3",
+              "ko": "3"
             }
           }
         ],
@@ -96,10 +206,32 @@
       },
       {
         "title": {
-          "en": "Fireplace fan mode has changed"
+          "en": "Fireplace fan mode has changed",
+          "nl": "De modus van de haardventilator is veranderd",
+          "da": "Pejsblæserens tilstand er blevet ændret",
+          "de": "Der Kaminlüftermodus hat sich geändert",
+          "es": "El modo del ventilador de la chimenea ha cambiado",
+          "fr": "Le mode du ventilateur de la cheminée a changé",
+          "it": "Il modo della ventola del camino è cambiato",
+          "no": "Peisviftemodus har blitt endret",
+          "sv": "Eldstadsfläktläget har ändrats",
+          "pl": "Tryb wentylatora kominka się zmienił",
+          "ru": "Изменился режим вентилятора камина",
+          "ko": "벽난로 팬 모드가 변경되었습니다"
         },
         "titleFormatted": {
-          "en": "The fireplace fan mode has changed."
+          "en": "The fireplace fan mode has changed.",
+          "nl": "De modus van de haardventilator is veranderd.",
+          "da": "Pejsblæserens tilstand er blevet ændret.",
+          "de": "Der Kaminlüftermodus hat sich geändert.",
+          "es": "El modo del ventilador de la chimenea ha cambiado.",
+          "fr": "Le mode du ventilateur de la cheminée a changé.",
+          "it": "Il modo della ventola del camino è cambiato.",
+          "no": "Peisviftemodus har blitt endret.",
+          "sv": "Eldstadsfläktläget har ändrats.",
+          "pl": "Tryb wentylatora kominka się zmienił.",
+          "ru": "Изменился режим вентилятора камина.",
+          "ko": "벽난로 팬 모드가 변경되었습니다."
         },
         "args": [
           {
@@ -113,10 +245,32 @@
             "type": "string",
             "name": "fpfan_mode",
             "title": {
-              "en": "Fireplace fan mode"
+              "en": "Fireplace fan mode",
+              "nl": "Modus haardventilator",
+              "da": "Pejsblæser tilstand",
+              "de": "Kaminlüftermodus",
+              "es": "Modo del ventilador de la chimenea",
+              "fr": "Mode du ventilateur de la cheminée",
+              "it": "Modalità ventola camino",
+              "no": "Peisviftemodus",
+              "sv": "Eldstadsfläktläge",
+              "pl": "Tryb wentylatora kominka",
+              "ru": "Режим вентилятора камина",
+              "ko": "벽난로 팬 모드"
             },
             "example": {
-              "en": "Low"
+              "en": "Low",
+              "nl": "Laag",
+              "da": "Lav",
+              "de": "Niedrig",
+              "es": "Bajo",
+              "fr": "Bas",
+              "it": "Basso",
+              "no": "Lav",
+              "sv": "Låg",
+              "pl": "Niski",
+              "ru": "Низкий",
+              "ko": "낮음"
             }
           }
         ],
@@ -127,7 +281,18 @@
   "drivers": [
     {
       "name": {
-        "en": "Fan"
+        "en": "Fan",
+        "nl": "Ventilator",
+        "da": "Fan",
+        "de": "Ventilator",
+        "es": "Ventilador",
+        "fr": "Ventilateur",
+        "it": "Ventilatore",
+        "no": "Vifte",
+        "sv": "Fläkt",
+        "pl": "Wentylator",
+        "ru": "Вентилятор",
+        "ko": "팬"
       },
       "energy": {
         "approximation": {
@@ -166,7 +331,18 @@
     },
     {
       "name": {
-        "en": "Fireplace"
+        "en": "Fireplace",
+        "nl": "Open haard",
+        "da": "Pejs",
+        "de": "Kamin",
+        "es": "Chimenea",
+        "fr": "Cheminée",
+        "it": "Caminetto",
+        "no": "Peis",
+        "sv": "Öppen spis",
+        "pl": "Kominek",
+        "ru": "Камин",
+        "ko": "벽난로"
       },
       "class": "heater",
       "capabilities": [
@@ -200,7 +376,18 @@
     },
     {
       "name": {
-        "en": "Shade"
+        "en": "Shade",
+        "nl": "Schaduw",
+        "da": "Skygge",
+        "de": "Schatten",
+        "es": "Sombra",
+        "fr": "Ombre",
+        "it": "Ombra",
+        "no": "Skugge",
+        "sv": "Skugga",
+        "pl": "Cień",
+        "ru": "Тень",
+        "ko": "그늘"
       },
       "class": "blinds",
       "capabilities": [
@@ -239,18 +426,51 @@
         {
           "id": "1",
           "title": {
-            "en": "Forward"
+            "en": "Forward",
+            "nl": "Vooruit",
+            "da": "Fremad",
+            "de": "Vorwärts",
+            "es": "Adelante",
+            "fr": "Avant",
+            "it": "Avanti",
+            "no": "Fremover",
+            "sv": "Framåt",
+            "pl": "Naprzód",
+            "ru": "Вперед",
+            "ko": "앞으로"
           }
         },
         {
           "id": "-1",
           "title": {
-            "en": "Reverse"
+            "en": "Reverse",
+            "nl": "Achteruit",
+            "da": "Baglæns",
+            "de": "Rückwärts",
+            "es": "Revertir",
+            "fr": "Arrière",
+            "it": "Indietro",
+            "no": "Bakover",
+            "sv": "Bakåt",
+            "pl": "Wstecz",
+            "ru": "Назад",
+            "ko": "뒤로"
           }
         }
       ],
       "title": {
-        "en": "Fan Direction"
+        "en": "Fan Direction",
+        "nl": "Ventilatierichting",
+        "da": "Ventilatormetning",
+        "de": "Lüfterrichtung",
+        "es": "Dirección del ventilador",
+        "fr": "Direction du ventilateur",
+        "it": "Direzione della ventola",
+        "no": "Vifteretning",
+        "sv": "Fläktriktning",
+        "pl": "Kierunek wentylatora",
+        "ru": "Направление вентилятора",
+        "ko": "팬 방향"
       },
       "getable": true,
       "setable": true,
@@ -263,30 +483,85 @@
         {
           "id": "off",
           "title": {
-            "en": "Off"
+            "en": "Off",
+            "nl": "Uit",
+            "da": "Slukket",
+            "de": "Aus",
+            "es": "Apagado",
+            "fr": "Éteint",
+            "it": "Spento",
+            "no": "Av",
+            "sv": "Av",
+            "pl": "Wyłączone",
+            "ru": "Выкл",
+            "ko": "끄기"
           }
         },
         {
           "id": "low",
           "title": {
-            "en": "Low"
+            "en": "Low",
+            "nl": "Laag",
+            "da": "Lav",
+            "de": "Niedrig",
+            "es": "Bajo",
+            "fr": "Bas",
+            "it": "Basso",
+            "no": "Lav",
+            "sv": "Låg",
+            "pl": "Niski",
+            "ru": "Низкий",
+            "ko": "낮음"
           }
         },
         {
           "id": "medium",
           "title": {
-            "en": "Medium"
+            "en": "Medium",
+            "nl": "Gemiddeld",
+            "da": "Middel",
+            "de": "Mittel",
+            "es": "Medio",
+            "fr": "Moyen",
+            "it": "Medio",
+            "no": "Middels",
+            "sv": "Medel",
+            "pl": "Średni",
+            "ru": "Средний",
+            "ko": "중간"
           }
         },
         {
           "id": "high",
           "title": {
-            "en": "High"
+            "en": "High",
+            "nl": "Hoog",
+            "da": "Høj",
+            "de": "Hoch",
+            "es": "Alto",
+            "fr": "Élevé",
+            "it": "Alto",
+            "no": "Høy",
+            "sv": "Hög",
+            "pl": "Wysoki",
+            "ru": "Высокий",
+            "ko": "높음"
           }
         }
       ],
       "title": {
-        "en": "Fan Speed"
+        "en": "Fan Speed",
+        "nl": "Ventilatorsnelheid",
+        "da": "Ventilatorhastighed",
+        "de": "Lüftergeschwindigkeit",
+        "es": "Velocidad del ventilador",
+        "fr": "Vitesse du ventilateur",
+        "it": "Velocità della ventola",
+        "no": "Viftehastighet",
+        "sv": "Fläkthastighet",
+        "pl": "Prędkość wentylatora",
+        "ru": "Скорость вентилятора",
+        "ko": "팬 속도"
       },
       "getable": true,
       "setable": true,
@@ -296,7 +571,18 @@
     "fan_speed": {
       "type": "number",
       "title": {
-        "en": "Fan Speed"
+        "en": "Fan Speed",
+        "nl": "Ventilatorsnelheid",
+        "da": "Ventilatorhastighed",
+        "de": "Lüftergeschwindigkeit",
+        "es": "Velocidad del ventilador",
+        "fr": "Vitesse du ventilateur",
+        "it": "Velocità della ventola",
+        "no": "Viftehastighet",
+        "sv": "Fläkthastighet",
+        "pl": "Prędkość wentylatora",
+        "ru": "Скорость вентилятора",
+        "ko": "팬 속도"
       },
       "min": 0,
       "max": 1,
@@ -312,30 +598,85 @@
         {
           "id": "off",
           "title": {
-            "en": "Off"
+            "en": "Off",
+            "nl": "Uit",
+            "da": "Fra",
+            "de": "Aus",
+            "es": "Apagado",
+            "fr": "Éteint",
+            "it": "Spento",
+            "no": "Av",
+            "sv": "Av",
+            "pl": "Wył.",
+            "ru": "Выкл.",
+            "ko": "끄기"
           }
         },
         {
           "id": "low",
           "title": {
-            "en": "Low"
+            "en": "Low",
+            "nl": "Laag",
+            "da": "Lav",
+            "de": "Niedrig",
+            "es": "Bajo",
+            "fr": "Bas",
+            "it": "Basso",
+            "no": "Lav",
+            "sv": "Låg",
+            "pl": "Niski",
+            "ru": "Низкий",
+            "ko": "낮음"
           }
         },
         {
           "id": "medium",
           "title": {
-            "en": "Medium"
+            "en": "Medium",
+            "nl": "Middel",
+            "da": "Middel",
+            "de": "Mittel",
+            "es": "Medio",
+            "fr": "Moyen",
+            "it": "Medio",
+            "no": "Middels",
+            "sv": "Medium",
+            "pl": "Średni",
+            "ru": "Средний",
+            "ko": "중간"
           }
         },
         {
           "id": "high",
           "title": {
-            "en": "High"
+            "en": "High",
+            "nl": "Hoog",
+            "da": "Høj",
+            "de": "Hoch",
+            "es": "Alto",
+            "fr": "Élevé",
+            "it": "Alto",
+            "no": "Høy",
+            "sv": "Hög",
+            "pl": "Wysoki",
+            "ru": "Высокий",
+            "ko": "높음"
           }
         }
       ],
       "title": {
-        "en": "Fireplace Fan Speed"
+        "en": "Fireplace Fan Speed",
+        "nl": "Snelheid van de Openhaard Ventilator",
+        "da": "Kaminblæserhastighed",
+        "de": "Kaminlüftergeschwindigkeit",
+        "es": "Velocidad del Ventilador de la Chimenea",
+        "fr": "Vitesse du ventilateur de la cheminée",
+        "it": "Velocità della Ventola del Camino",
+        "no": "Peisviftehastighet",
+        "sv": "Eldstadsfläkthastighet",
+        "pl": "Prędkość Wentylatora Kominka",
+        "ru": "Скорость вентилятора камина",
+        "ko": "벽난로 팬 속도"
       },
       "getable": true,
       "setable": true,

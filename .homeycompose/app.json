@@ -1,6 +1,6 @@
 {
   "id": "com.gslender.bondbridge",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#2f0fbb",
@@ -8,10 +8,32 @@
     "local"
   ],
   "name": {
-    "en": "Bond Bridge Integration"
+    "en": "Bond Bridge Integration",
+    "nl": "Bond Bridge-integratie",
+    "da": "Bond Bridge-integration",
+    "de": "Bond Bridge-Integration",
+    "es": "Integración de Bond Bridge",
+    "fr": "Intégration Bond Bridge",
+    "it": "Integrazione Bond Bridge",
+    "no": "Bond Bridge-integrasjon",
+    "sv": "Bond Bridge-integration",
+    "pl": "Integracja z Bond Bridge",
+    "ru": "Интеграция Bond Bridge",
+    "ko": "Bond Bridge 통합"
   },
   "description": {
-    "en": "Add Wi-Fi to ceiling fans, fireplaces and shades."
+    "en": "Add Wi-Fi to ceiling fans, fireplaces and shades.",
+    "nl": "Voeg Wi-Fi toe aan plafondventilatoren, open haarden en zonwering.",
+    "da": "Tilføj Wi-Fi til loftsventilatorer, pejse og skyggelæggere.",
+    "de": "Fügen Sie Wi-Fi zu Deckenventilatoren, Kaminen und Jalousien hinzu.",
+    "es": "Agrega Wi-Fi a ventiladores de techo, chimeneas y persianas.",
+    "fr": "Ajoutez le Wi-Fi aux ventilateurs de plafond, cheminées et stores.",
+    "it": "Aggiungi il Wi-Fi a ventilatori da soffitto, caminetti e tende.",
+    "no": "Legg til Wi-Fi til takvifter, peiser og persienner.",
+    "sv": "Lägg till Wi-Fi till takfläktar, eldstäder och persienner.",
+    "pl": "Dodaj Wi-Fi do wentylatorów sufitowych, kominków i rolet.",
+    "ru": "Добавьте Wi-Fi к потолочным вентиляторам, каминам и шторам.",
+    "ko": "천장 선풍기, 벽난로 및 블라인드에 Wi-Fi를 추가하세요."
   },
   "category": [
     "climate"

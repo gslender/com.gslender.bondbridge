@@ -1,36 +1,91 @@
 {
-    "type": "enum",
-    "values": [
-        {
-            "id": "off",
-            "title": {
-                "en": "Off"
-            }
-        },
-        {
-            "id": "low",
-            "title": {
-                "en": "Low"
-            }
-        },
-        {
-            "id": "medium",
-            "title": {
-                "en": "Medium"
-            }
-        },
-        {
-            "id": "high",
-            "title": {
-                "en": "High"
-            }
-        }
-    ],
-    "title": {
-        "en": "Fan Speed"
+  "type": "enum",
+  "values": [
+    {
+      "id": "off",
+      "title": {
+        "en": "Off",
+        "nl": "Uit",
+        "da": "Slukket",
+        "de": "Aus",
+        "es": "Apagado",
+        "fr": "Éteint",
+        "it": "Spento",
+        "no": "Av",
+        "sv": "Av",
+        "pl": "Wyłączone",
+        "ru": "Выкл",
+        "ko": "끄기"
+      }
     },
-    "getable": true,
-    "setable": true,
-    "uiComponent": "picker",
-    "uiQuickAction": true
+    {
+      "id": "low",
+      "title": {
+        "en": "Low",
+        "nl": "Laag",
+        "da": "Lav",
+        "de": "Niedrig",
+        "es": "Bajo",
+        "fr": "Bas",
+        "it": "Basso",
+        "no": "Lav",
+        "sv": "Låg",
+        "pl": "Niski",
+        "ru": "Низкий",
+        "ko": "낮음"
+      }
+    },
+    {
+      "id": "medium",
+      "title": {
+        "en": "Medium",
+        "nl": "Gemiddeld",
+        "da": "Middel",
+        "de": "Mittel",
+        "es": "Medio",
+        "fr": "Moyen",
+        "it": "Medio",
+        "no": "Middels",
+        "sv": "Medel",
+        "pl": "Średni",
+        "ru": "Средний",
+        "ko": "중간"
+      }
+    },
+    {
+      "id": "high",
+      "title": {
+        "en": "High",
+        "nl": "Hoog",
+        "da": "Høj",
+        "de": "Hoch",
+        "es": "Alto",
+        "fr": "Élevé",
+        "it": "Alto",
+        "no": "Høy",
+        "sv": "Hög",
+        "pl": "Wysoki",
+        "ru": "Высокий",
+        "ko": "높음"
+      }
+    }
+  ],
+  "title": {
+    "en": "Fan Speed",
+    "nl": "Ventilatorsnelheid",
+    "da": "Ventilatorhastighed",
+    "de": "Lüftergeschwindigkeit",
+    "es": "Velocidad del ventilador",
+    "fr": "Vitesse du ventilateur",
+    "it": "Velocità della ventola",
+    "no": "Viftehastighet",
+    "sv": "Fläkthastighet",
+    "pl": "Prędkość wentylatora",
+    "ru": "Скорость вентилятора",
+    "ko": "팬 속도"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "uiQuickAction": true
 }

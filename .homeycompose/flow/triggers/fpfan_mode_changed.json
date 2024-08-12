@@ -1,27 +1,71 @@
 {
-    "title": {
-      "en": "Fireplace fan mode has changed"
-    },
-    "titleFormatted": {
-      "en": "The fireplace fan mode has changed."
-    },
-    "args": [
-        {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=fireplace"
-        }
-    ],
-    "tokens": [
-      {
-        "type": "string",
-        "name": "fpfan_mode",
-        "title": {
-          "en": "Fireplace fan mode"
-        },
-        "example": {
-          "en": "Low"
-        }
+  "title": {
+    "en": "Fireplace fan mode has changed",
+    "nl": "De modus van de haardventilator is veranderd",
+    "da": "Pejsblæserens tilstand er blevet ændret",
+    "de": "Der Kaminlüftermodus hat sich geändert",
+    "es": "El modo del ventilador de la chimenea ha cambiado",
+    "fr": "Le mode du ventilateur de la cheminée a changé",
+    "it": "Il modo della ventola del camino è cambiato",
+    "no": "Peisviftemodus har blitt endret",
+    "sv": "Eldstadsfläktläget har ändrats",
+    "pl": "Tryb wentylatora kominka się zmienił",
+    "ru": "Изменился режим вентилятора камина",
+    "ko": "벽난로 팬 모드가 변경되었습니다"
+  },
+  "titleFormatted": {
+    "en": "The fireplace fan mode has changed.",
+    "nl": "De modus van de haardventilator is veranderd.",
+    "da": "Pejsblæserens tilstand er blevet ændret.",
+    "de": "Der Kaminlüftermodus hat sich geändert.",
+    "es": "El modo del ventilador de la chimenea ha cambiado.",
+    "fr": "Le mode du ventilateur de la cheminée a changé.",
+    "it": "Il modo della ventola del camino è cambiato.",
+    "no": "Peisviftemodus har blitt endret.",
+    "sv": "Eldstadsfläktläget har ändrats.",
+    "pl": "Tryb wentylatora kominka się zmienił.",
+    "ru": "Изменился режим вентилятора камина.",
+    "ko": "벽난로 팬 모드가 변경되었습니다."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=fireplace"
+    }
+  ],
+  "tokens": [
+    {
+      "type": "string",
+      "name": "fpfan_mode",
+      "title": {
+        "en": "Fireplace fan mode",
+        "nl": "Modus haardventilator",
+        "da": "Pejsblæser tilstand",
+        "de": "Kaminlüftermodus",
+        "es": "Modo del ventilador de la chimenea",
+        "fr": "Mode du ventilateur de la cheminée",
+        "it": "Modalità ventola camino",
+        "no": "Peisviftemodus",
+        "sv": "Eldstadsfläktläge",
+        "pl": "Tryb wentylatora kominka",
+        "ru": "Режим вентилятора камина",
+        "ko": "벽난로 팬 모드"
+      },
+      "example": {
+        "en": "Low",
+        "nl": "Laag",
+        "da": "Lav",
+        "de": "Niedrig",
+        "es": "Bajo",
+        "fr": "Bas",
+        "it": "Basso",
+        "no": "Lav",
+        "sv": "Låg",
+        "pl": "Niski",
+        "ru": "Низкий",
+        "ko": "낮음"
       }
-    ]
-  }
+    }
+  ]
+}

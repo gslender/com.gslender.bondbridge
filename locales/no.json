@@ -1,0 +1,20 @@
+{
+  "settings": {
+    "title": "Innstillinger",
+    "checkSettings": "Sjekk innstillinger...",
+    "status": "Status",
+    "ipaddress": "IP-adresse",
+    "token": "Token",
+    "pollingInterval": "Pollingsintervall",
+    "15Seconds": "15 sekunder",
+    "30Seconds": "30 sekunder",
+    "1Minute": "1 minutt",
+    "2Minutes": "2 minutter",
+    "5Minutes": "5 minutter",
+    "saveChanges": "Lagre endringer",
+    "failed": "Mislyktes!",
+    "validToken": "Gyldig IP-adresse og token",
+    "invalidToken": "Ugyldig IP-adresse eller token!?",
+    "saved": "Innstillinger lagret"
+  }
+}

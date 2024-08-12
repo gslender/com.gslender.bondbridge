@@ -1,0 +1,3 @@
+Diese Homey App verbindet sich lokal mit der Bond Bridge und ermöglicht die Steuerung der auf RF basierenden Deckenventilatoren, Kamine und Beschattungsvorrichtungen, die in der Bond Bridge App konfiguriert sind.
+
+Verwende das lokale Token, das in den Bond Bridge Geräteeinstellungen im Abschnitt Erweiterte Einstellungen bereitgestellt wird, um die Homey App zu autorisieren und die Verbindung herzustellen.

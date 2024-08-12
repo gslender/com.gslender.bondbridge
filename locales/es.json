@@ -1,0 +1,20 @@
+{
+  "settings": {
+    "title": "Configuraciones",
+    "checkSettings": "Verificar Configuraciones...",
+    "status": "Estado",
+    "ipaddress": "Dirección IP",
+    "token": "Token",
+    "pollingInterval": "Intervalo de Sondeo",
+    "15Seconds": "15 Segundos",
+    "30Seconds": "30 Segundos",
+    "1Minute": "1 Minuto",
+    "2Minutes": "2 Minutos",
+    "5Minutes": "5 Minutos",
+    "saveChanges": "Guardar Cambios",
+    "failed": "¡Fallido!",
+    "validToken": "Dirección IP y Token Válidos",
+    "invalidToken": "¡Dirección IP o Token Inválido!?",
+    "saved": "Configuraciones Guardadas"
+  }
+}

@@ -11,41 +11,38 @@
     <header class="homey-header">
         <h1 class="homey-title" data-i18n="settings.title">
         </h1>
-        <p class="homey-subtitle" data-i18n="settings.subtitle">
-        </p>
     </header>
     <!-- <form class="homey-form"> -->
         <fieldset class="homey-form-fieldset">
-            <legend class="homey-form-legend">Settings</legend>
 
             <div class="homey-form-group">
-                <button id="checksettings" class="homey-button-secondary-shadow">Check Settings...</button>
+                <button id="checksettings" class="homey-button-secondary-shadow" data-i18n="settings.checkSettings"></button>
             </div>
             <div class="homey-form-group">
-                <label class="homey-form-label" for="token">Status</label>
+                <label class="homey-form-label" for="token" data-i18n="settings.status"></label>
                 <p id="status">Unknown!?</p>
             </div>
             <hr>
             <div class="homey-form-group">
-                <label class="homey-form-label" for="ipaddress">IP Address</label>
+                <label class="homey-form-label" for="ipaddress" data-i18n="settings.ipaddress"></label>
                 <input class="homey-form-input" id="ipaddress" type="text" value="" />
             </div>
             <div class="homey-form-group">
-                <label class="homey-form-label" for="token">Token</label>
+                <label class="homey-form-label" for="token" data-i18n="settings.token"></label>
                 <input class="homey-form-input" id="token" type="text" value="" />
             </div>
-            <label class="homey-form-label" for="select-polling">Polling Interval</label>
+            <label class="homey-form-label" for="select-polling" data-i18n="settings.pollingInterval"></label>
             <select class="homey-form-select" name="select-polling" id="select-polling">
-                <option value="15000">15 Seconds</option>
-                <option value="30000">30 Seconds</option>
-                <option value="60000">1 Minute</option>
-                <option value="120000">2 Minutes</option>
-                <option value="300000">5 Minutes</option>
+                <option value="15000" data-i18n="settings.15Seconds"></option>
+                <option value="30000" data-i18n="settings.30Seconds"></option>
+                <option value="60000" data-i18n="settings.1Minute"></option>
+                <option value="120000" data-i18n="settings.2Minutes"></option>
+                <option value="300000" data-i18n="settings.5Minutes"></option>
             </select>
 
         </fieldset>
 
-        <p><button id="save" class="right homey-button-primary-full">Save Changes</button></p>
+        <p><button id="save" class="right homey-button-primary-full" data-i18n="settings.saveChanges"></button></p>
     <!-- </form> -->
     <script type="text/javascript">
 
@@ -115,13 +112,13 @@
                         document.getElementById('checksettings').classList.remove("is-loading");
                         if (err) {
                             return Homey.alert(err);
-                            statusElement.innerText = "Failed!";
+                            statusElement.innerText = Homey.__("settings.failed");
                         }
                         else {
                             if (result==='VALID_TOKEN') {
-                                statusElement.innerText = 'IP Address & Token Valid :-)';
+                                statusElement.innerText = Homey.__("settings.validToken");
                             } else {
-                                statusElement.innerText = 'INVALID IP Address or Token !?';
+                                statusElement.innerText = Homey.__("settings.invalidToken");
                             }
                         }
                     });
@@ -134,7 +131,7 @@
                 || oldpolling != pollingElement.value) {
                     document.getElementById('save').classList.add("is-loading");
                     await setBondValues();
-                    return Homey.alert("Settings Saved");
+                    return Homey.alert(Homey.__("settings.saved"));
                 }
             });
         }

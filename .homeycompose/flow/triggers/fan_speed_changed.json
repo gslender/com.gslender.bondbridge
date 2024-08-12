@@ -1,27 +1,71 @@
 {
-    "title": {
-      "en": "Fan speed has changed"
-    },
-    "titleFormatted": {
-      "en": "The fan speed has changed."
-    },
-    "args": [
-        {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=fan"
-        }
-    ],
-    "tokens": [
-      {
-        "type": "string",
-        "name": "fan_speed",
-        "title": {
-          "en": "Fan speed"
-        },
-        "example": {
-          "en": "3"
-        }
+  "title": {
+    "en": "Fan speed has changed",
+    "nl": "Ventilatorsnelheid is veranderd",
+    "da": "Blæserhastighed er ændret",
+    "de": "Die Lüftergeschwindigkeit hat sich geändert",
+    "es": "La velocidad del ventilador ha cambiado",
+    "fr": "La vitesse du ventilateur a changé",
+    "it": "La velocità della ventola è cambiata",
+    "no": "Viftehastigheten har endret seg",
+    "sv": "Fläkthastigheten har ändrats",
+    "pl": "Prędkość wentylatora została zmieniona",
+    "ru": "Скорость вентилятора изменилась",
+    "ko": "팬 속도가 변경되었습니다"
+  },
+  "titleFormatted": {
+    "en": "The fan speed has changed.",
+    "nl": "De ventilatorsnelheid is veranderd.",
+    "da": "Blæserhastigheden er ændret.",
+    "de": "Die Lüftergeschwindigkeit hat sich geändert.",
+    "es": "La velocidad del ventilador ha cambiado.",
+    "fr": "La vitesse du ventilateur a changé.",
+    "it": "La velocità della ventola è cambiata.",
+    "no": "Viftehastigheten har endret seg.",
+    "sv": "Fläkthastigheten har ändrats.",
+    "pl": "Prędkość wentylatora została zmieniona.",
+    "ru": "Скорость вентилятора изменилась.",
+    "ko": "팬 속도가 변경되었습니다."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=fan"
+    }
+  ],
+  "tokens": [
+    {
+      "type": "string",
+      "name": "fan_speed",
+      "title": {
+        "en": "Fan speed",
+        "nl": "Ventilatorsnelheid",
+        "da": "Blæserhastighed",
+        "de": "Lüftergeschwindigkeit",
+        "es": "Velocidad del ventilador",
+        "fr": "Vitesse du ventilateur",
+        "it": "Velocità della ventola",
+        "no": "Viftehastighet",
+        "sv": "Fläkthastighet",
+        "pl": "Prędkość wentylatora",
+        "ru": "Скорость вентилятора",
+        "ko": "팬 속도"
+      },
+      "example": {
+        "en": "3",
+        "nl": "3",
+        "da": "3",
+        "de": "3",
+        "es": "3",
+        "fr": "3",
+        "it": "3",
+        "no": "3",
+        "sv": "3",
+        "pl": "3",
+        "ru": "3",
+        "ko": "3"
       }
-    ]
-  }
+    }
+  ]
+}

@@ -1,6 +1,17 @@
 {
   "name": {
-    "en": "Shade"
+    "en": "Shade",
+    "nl": "Schaduw",
+    "da": "Skygge",
+    "de": "Schatten",
+    "es": "Sombra",
+    "fr": "Ombre",
+    "it": "Ombra",
+    "no": "Skugge",
+    "sv": "Skugga",
+    "pl": "Cień",
+    "ru": "Тень",
+    "ko": "그늘"
   },
   "class": "blinds",
   "capabilities": [
@@ -17,16 +28,16 @@
     "large": "{{driverAssetsPath}}/images/large.png"
   },
   "pair": [
-      {
-          "id": "list_my_devices",
-          "template": "list_devices",
-          "navigation": {
-              "next": "add_my_devices"
-          }
-      },
-      {
-          "id": "add_my_devices",
-          "template": "add_devices"
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
       }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
   ]
 }

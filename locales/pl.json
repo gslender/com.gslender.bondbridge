@@ -1,0 +1,20 @@
+{
+  "settings": {
+    "title": "Ustawienia",
+    "checkSettings": "Sprawdź ustawienia...",
+    "status": "Status",
+    "ipaddress": "Adres IP",
+    "token": "Token",
+    "pollingInterval": "Interwał odpytywania",
+    "15Seconds": "15 sekund",
+    "30Seconds": "30 sekund",
+    "1Minute": "1 minuta",
+    "2Minutes": "2 minuty",
+    "5Minutes": "5 minut",
+    "saveChanges": "Zapisz zmiany",
+    "failed": "Nieudane!",
+    "validToken": "Prawidłowy adres IP i token",
+    "invalidToken": "Nieprawidłowy adres IP lub token !?",
+    "saved": "Ustawienia zapisane"
+  }
+}

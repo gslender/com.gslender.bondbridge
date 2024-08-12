@@ -1,0 +1,20 @@
+{
+  "settings": {
+    "title": "Paramètres",
+    "checkSettings": "Vérifiez les paramètres...",
+    "status": "Statut",
+    "ipaddress": "Adresse IP",
+    "token": "Jeton",
+    "pollingInterval": "Intervalle d'interrogation",
+    "15Seconds": "15 Secondes",
+    "30Seconds": "30 Secondes",
+    "1Minute": "1 Minute",
+    "2Minutes": "2 Minutes",
+    "5Minutes": "5 Minutes",
+    "saveChanges": "Enregistrer les modifications",
+    "failed": "Échec!",
+    "validToken": "Adresse IP et jeton valides",
+    "invalidToken": "Adresse IP ou jeton invalide !?",
+    "saved": "Paramètres enregistrés"
+  }
+}

@@ -1,36 +1,91 @@
 {
-    "type": "enum",
-    "values": [
-        {
-            "id": "off",
-            "title": {
-                "en": "Off"
-            }
-        },
-        {
-            "id": "low",
-            "title": {
-                "en": "Low"
-            }
-        },
-        {
-            "id": "medium",
-            "title": {
-                "en": "Medium"
-            }
-        },
-        {
-            "id": "high",
-            "title": {
-                "en": "High"
-            }
-        }
-    ],
-    "title": {
-        "en": "Fireplace Fan Speed"
+  "type": "enum",
+  "values": [
+    {
+      "id": "off",
+      "title": {
+        "en": "Off",
+        "nl": "Uit",
+        "da": "Fra",
+        "de": "Aus",
+        "es": "Apagado",
+        "fr": "Éteint",
+        "it": "Spento",
+        "no": "Av",
+        "sv": "Av",
+        "pl": "Wył.",
+        "ru": "Выкл.",
+        "ko": "끄기"
+      }
     },
-    "getable": true,
-    "setable": true,
-    "uiComponent": "picker",
-    "uiQuickAction": true
+    {
+      "id": "low",
+      "title": {
+        "en": "Low",
+        "nl": "Laag",
+        "da": "Lav",
+        "de": "Niedrig",
+        "es": "Bajo",
+        "fr": "Bas",
+        "it": "Basso",
+        "no": "Lav",
+        "sv": "Låg",
+        "pl": "Niski",
+        "ru": "Низкий",
+        "ko": "낮음"
+      }
+    },
+    {
+      "id": "medium",
+      "title": {
+        "en": "Medium",
+        "nl": "Middel",
+        "da": "Middel",
+        "de": "Mittel",
+        "es": "Medio",
+        "fr": "Moyen",
+        "it": "Medio",
+        "no": "Middels",
+        "sv": "Medium",
+        "pl": "Średni",
+        "ru": "Средний",
+        "ko": "중간"
+      }
+    },
+    {
+      "id": "high",
+      "title": {
+        "en": "High",
+        "nl": "Hoog",
+        "da": "Høj",
+        "de": "Hoch",
+        "es": "Alto",
+        "fr": "Élevé",
+        "it": "Alto",
+        "no": "Høy",
+        "sv": "Hög",
+        "pl": "Wysoki",
+        "ru": "Высокий",
+        "ko": "높음"
+      }
+    }
+  ],
+  "title": {
+    "en": "Fireplace Fan Speed",
+    "nl": "Snelheid van de Openhaard Ventilator",
+    "da": "Kaminblæserhastighed",
+    "de": "Kaminlüftergeschwindigkeit",
+    "es": "Velocidad del Ventilador de la Chimenea",
+    "fr": "Vitesse du ventilateur de la cheminée",
+    "it": "Velocità della Ventola del Camino",
+    "no": "Peisviftehastighet",
+    "sv": "Eldstadsfläkthastighet",
+    "pl": "Prędkość Wentylatora Kominka",
+    "ru": "Скорость вентилятора камина",
+    "ko": "벽난로 팬 속도"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "uiQuickAction": true
 }

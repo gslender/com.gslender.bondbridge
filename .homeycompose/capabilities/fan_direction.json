@@ -1,24 +1,57 @@
 {
-    "type": "enum",
-    "values": [
-        {
-            "id": "1",
-            "title": {
-                "en": "Forward"
-            }
-        },
-        {
-            "id": "-1",
-            "title": {
-                "en": "Reverse"
-            }
-        }
-    ],
-    "title": {
-        "en": "Fan Direction"
+  "type": "enum",
+  "values": [
+    {
+      "id": "1",
+      "title": {
+        "en": "Forward",
+        "nl": "Vooruit",
+        "da": "Fremad",
+        "de": "Vorwärts",
+        "es": "Adelante",
+        "fr": "Avant",
+        "it": "Avanti",
+        "no": "Fremover",
+        "sv": "Framåt",
+        "pl": "Naprzód",
+        "ru": "Вперед",
+        "ko": "앞으로"
+      }
     },
-    "getable": true,
-    "setable": true,
-    "uiComponent": "picker",
-    "uiQuickAction": true
+    {
+      "id": "-1",
+      "title": {
+        "en": "Reverse",
+        "nl": "Achteruit",
+        "da": "Baglæns",
+        "de": "Rückwärts",
+        "es": "Revertir",
+        "fr": "Arrière",
+        "it": "Indietro",
+        "no": "Bakover",
+        "sv": "Bakåt",
+        "pl": "Wstecz",
+        "ru": "Назад",
+        "ko": "뒤로"
+      }
+    }
+  ],
+  "title": {
+    "en": "Fan Direction",
+    "nl": "Ventilatierichting",
+    "da": "Ventilatormetning",
+    "de": "Lüfterrichtung",
+    "es": "Dirección del ventilador",
+    "fr": "Direction du ventilateur",
+    "it": "Direzione della ventola",
+    "no": "Vifteretning",
+    "sv": "Fläktriktning",
+    "pl": "Kierunek wentylatora",
+    "ru": "Направление вентилятора",
+    "ko": "팬 방향"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "uiQuickAction": true
 }

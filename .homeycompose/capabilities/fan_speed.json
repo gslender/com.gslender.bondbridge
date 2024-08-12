@@ -1,14 +1,24 @@
 {
-    "type": "number",    
-    "title": {
-        "en": "Fan Speed"
-    },
-    "min": 0,
-    "max": 1,
-    "step": 1,
-    "getable": true,
-    "setable": true,
-    "uiComponent": "slider",
-    "uiQuickAction": true
+  "type": "number",
+  "title": {
+    "en": "Fan Speed",
+    "nl": "Ventilatorsnelheid",
+    "da": "Ventilatorhastighed",
+    "de": "Lüftergeschwindigkeit",
+    "es": "Velocidad del ventilador",
+    "fr": "Vitesse du ventilateur",
+    "it": "Velocità della ventola",
+    "no": "Viftehastighet",
+    "sv": "Fläkthastighet",
+    "pl": "Prędkość wentylatora",
+    "ru": "Скорость вентилятора",
+    "ko": "팬 속도"
+  },
+  "min": 0,
+  "max": 1,
+  "step": 1,
+  "getable": true,
+  "setable": true,
+  "uiComponent": "slider",
+  "uiQuickAction": true
 }
-
