@@ -14,7 +14,8 @@ class ShadeDevice extends Device {
    */
   async onInit() {
     const props = await this.homey.app.bond.getBondDeviceProperties(this.getData().id);
-    this.log(`ShadeDevice has been initialized props=${JSON.stringify(props)}`);
+    const deviceData = await this.homey.app.bond.getBondDevice(this.getData().id);
+    this.log(`ShadeDevice has been initialized deviceData=${JSON.stringify(deviceData)} props=${JSON.stringify(props)}`);
 
     this.registerCapabilityListener("windowcoverings_state", async (value) => {
       this.log('state',value);

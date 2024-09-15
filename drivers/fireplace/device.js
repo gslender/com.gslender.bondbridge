@@ -14,7 +14,8 @@ class FireplaceDevice extends Device {
    */
   async onInit() {
     const props = await this.homey.app.bond.getBondDeviceProperties(this.getData().id);
-    this.log(`FireplaceDevice has been initialized props=${JSON.stringify(props)}`);
+    const deviceData = await this.homey.app.bond.getBondDevice(this.getData().id);
+    this.log(`FireplaceDevice has been initialized deviceData=${JSON.stringify(deviceData)} props=${JSON.stringify(props)}`);
 
     this.registerCapabilityListener("onoff", async (value) => {
       if (value) {
