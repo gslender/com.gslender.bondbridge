@@ -49,5 +49,8 @@
   },
   "1.2.0": {
     "en": "Fix light features"
+  },
+  "1.2.1": {
+    "en": "Added deviceData logging"
   }
 }

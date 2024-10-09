@@ -1,0 +1,10 @@
+[
+  {
+    "id": "deviceData",
+    "type": "label",
+    "label": {
+      "en": "Bond Device Data"
+    },
+    "value": ""
+  }
+]

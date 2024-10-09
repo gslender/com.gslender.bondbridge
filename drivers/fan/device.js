@@ -1,6 +1,7 @@
 'use strict';
 
 const { Device } = require('homey');
+const  stringify = require('json-stringify-safe');
 
 function hasProperties(obj, props) {
   if (!obj) return false;
@@ -22,6 +23,7 @@ class FanDevice extends Device {
     this.props = await this.bond.getBondDeviceProperties(this.getData().id);
     const deviceData = await this.homey.app.bond.getBondDevice(this.getData().id);
     this.log(`FanDevice has been initialized deviceData=${JSON.stringify(deviceData)} props=${JSON.stringify(this.props)}`);
+    this.setSettings({ deviceData: stringify(deviceData) });
 
     if (hasProperties(this.props.data, ["feature_light"]) && this.props.data.feature_light) {
       // fan with light   

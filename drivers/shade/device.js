@@ -1,6 +1,7 @@
 'use strict';
 
 const { Device } = require('homey');
+const  stringify  = require('json-stringify-safe');
 
 function hasProperties(obj, props) {
   if (!obj) return false;
@@ -16,6 +17,7 @@ class ShadeDevice extends Device {
     const props = await this.homey.app.bond.getBondDeviceProperties(this.getData().id);
     const deviceData = await this.homey.app.bond.getBondDevice(this.getData().id);
     this.log(`ShadeDevice has been initialized deviceData=${JSON.stringify(deviceData)} props=${JSON.stringify(props)}`);
+    this.setSettings({ deviceData: stringify(deviceData) });
 
     this.registerCapabilityListener("windowcoverings_state", async (value) => {
       this.log('state',value);
