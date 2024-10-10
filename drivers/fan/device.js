@@ -24,6 +24,7 @@ class FanDevice extends Device {
     const deviceData = await this.homey.app.bond.getBondDevice(this.getData().id);
     this.log(`FanDevice has been initialized deviceData=${JSON.stringify(deviceData)} props=${JSON.stringify(this.props)}`);
     this.setSettings({ deviceData: stringify(deviceData) });
+    this.setSettings({ deviceProps: stringify(this.props) });
 
     if (hasProperties(this.props.data, ["feature_light"]) && this.props.data.feature_light) {
       // fan with light   

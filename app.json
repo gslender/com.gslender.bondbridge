@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.gslender.bondbridge",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#2f0fbb",
@@ -336,6 +336,14 @@
             "en": "Bond Device Data"
           },
           "value": ""
+        },
+        {
+          "id": "deviceProps",
+          "type": "label",
+          "label": {
+            "en": "Bond Device Properties"
+          },
+          "value": ""
         }
       ]
     },
@@ -391,6 +399,14 @@
             "en": "Bond Device Data"
           },
           "value": ""
+        },
+        {
+          "id": "deviceProps",
+          "type": "label",
+          "label": {
+            "en": "Bond Device Properties"
+          },
+          "value": ""
         }
       ]
     },
@@ -443,6 +459,14 @@
           "type": "label",
           "label": {
             "en": "Bond Device Data"
+          },
+          "value": ""
+        },
+        {
+          "id": "deviceProps",
+          "type": "label",
+          "label": {
+            "en": "Bond Device Properties"
           },
           "value": ""
         }

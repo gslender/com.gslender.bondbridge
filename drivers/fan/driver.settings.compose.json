@@ -6,5 +6,13 @@
       "en": "Bond Device Data"
     },
     "value": ""
+  },
+  {
+    "id": "deviceProps",
+    "type": "label",
+    "label": {
+      "en": "Bond Device Properties"
+    },
+    "value": ""
   }
 ]

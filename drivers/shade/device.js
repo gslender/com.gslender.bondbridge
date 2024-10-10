@@ -14,10 +14,11 @@ class ShadeDevice extends Device {
    * onInit is called when the device is initialized.
    */
   async onInit() {
-    const props = await this.homey.app.bond.getBondDeviceProperties(this.getData().id);
+    this.props = await this.homey.app.bond.getBondDeviceProperties(this.getData().id);
     const deviceData = await this.homey.app.bond.getBondDevice(this.getData().id);
-    this.log(`ShadeDevice has been initialized deviceData=${JSON.stringify(deviceData)} props=${JSON.stringify(props)}`);
+    this.log(`ShadeDevice has been initialized deviceData=${JSON.stringify(deviceData)} props=${JSON.stringify(this.props)}`);
     this.setSettings({ deviceData: stringify(deviceData) });
+    this.setSettings({ deviceProps: stringify(this.props) });
 
     this.registerCapabilityListener("windowcoverings_state", async (value) => {
       this.log('state',value);
@@ -25,7 +26,7 @@ class ShadeDevice extends Device {
         await this.homey.app.bond.sendBondAction(this.getData().id,"Open", {});
       } 
       if (value === 'idle') {
-        await this.homey.app.bond.sendBondAction(this.getData().id,"Stop", {});
+        await this.homey.app.bond.sendBondAction(this.getData().id,"Hold", {});
       } 
       if (value === 'down') {
         await this.homey.app.bond.sendBondAction(this.getData().id,"Close", {});

@@ -14,10 +14,11 @@ class FireplaceDevice extends Device {
    * onInit is called when the device is initialized.
    */
   async onInit() {
-    const props = await this.homey.app.bond.getBondDeviceProperties(this.getData().id);
+    this.props = await this.homey.app.bond.getBondDeviceProperties(this.getData().id);
     const deviceData = await this.homey.app.bond.getBondDevice(this.getData().id);
-    this.log(`FireplaceDevice has been initialized deviceData=${JSON.stringify(deviceData)} props=${JSON.stringify(props)}`);
+    this.log(`FireplaceDevice has been initialized deviceData=${JSON.stringify(deviceData)} props=${JSON.stringify(this.props)}`);
     this.setSettings({ deviceData: stringify(deviceData) });
+    this.setSettings({ deviceProps: stringify(this.props) });
 
     this.registerCapabilityListener("onoff", async (value) => {
       if (value) {

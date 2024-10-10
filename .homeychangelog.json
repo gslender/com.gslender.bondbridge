@@ -52,5 +52,8 @@
   },
   "1.2.1": {
     "en": "Added deviceData logging"
+  },
+  "1.2.2": {
+    "en": "Fixed Stop to Hold"
   }
 }
