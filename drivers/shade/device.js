@@ -20,6 +20,18 @@ class ShadeDevice extends Device {
     this.setSettings({ deviceData: stringify(deviceData) });
     this.setSettings({ deviceProps: stringify(this.props) });
 
+    
+
+    if (hasProperties(this.props.data, ["feature_position"]) && this.props.data.feature_position) {
+      // shade with positioning
+      await this.addCapability("windowcoverings_set");
+      this.registerCapabilityListener("windowcoverings_set", async (value) => {
+        await this.bond.sendBondAction(this.getData().id, "SetPosition", { "argument": value * 100 });
+      });
+    } else {
+      await this.removeCapability("windowcoverings_set");
+    }
+
     this.registerCapabilityListener("windowcoverings_state", async (value) => {
       this.log('state',value);
       if (value === 'up') {

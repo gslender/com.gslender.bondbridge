@@ -55,5 +55,8 @@
   },
   "1.2.2": {
     "en": "Fixed Stop to Hold"
+  },
+  "1.2.3": {
+    "en": "feature_position added"
   }
 }
