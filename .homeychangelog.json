@@ -58,5 +58,8 @@
   },
   "1.2.3": {
     "en": "feature_position added"
+  },
+  "1.2.4": {
+    "en": "Fix this.bond bug"
   }
 }
