@@ -24,14 +24,16 @@ class ShadeDevice extends Device {
     this.log(`ShadeDevice has been initialized deviceData=${JSON.stringify(deviceData)} props=${JSON.stringify(this.props)}`);
     this.setSettings({ deviceData: stringify(deviceData) });
     this.setSettings({ deviceProps: stringify(this.props) });
-
     
 
     if (hasProperties(this.props.data, ["feature_position"]) && this.props.data.feature_position) {
       // shade with positioning
       await this.addCapability("windowcoverings_set");
       this.registerCapabilityListener("windowcoverings_set", async (value) => {
-        await this.bond.sendBondAction(this.getData().id, "SetPosition", { "argument": value * 100 });
+        const flipPosition = this.getSetting('flipPosition');
+        let argVal = value * 100;
+        if (flipPosition) argVal = 100 - (argVal);
+        await this.bond.sendBondAction(this.getData().id, "SetPosition", { "argument": argVal });
       });
     } else {
       await this.removeCapability("windowcoverings_set");
@@ -39,15 +41,27 @@ class ShadeDevice extends Device {
 
     this.registerCapabilityListener("windowcoverings_state", async (value) => {
       this.log('state',value);
-      if (value === 'up') {
-        await this.homey.app.bond.sendBondAction(this.getData().id,"Open", {});
-      } 
       if (value === 'idle') {
         await this.homey.app.bond.sendBondAction(this.getData().id,"Hold", {});
+        return;
       } 
-      if (value === 'down') {
-        await this.homey.app.bond.sendBondAction(this.getData().id,"Close", {});
-      } 
+      const flipOpenClose = this.getSetting('flipOpenClose');
+      if (flipOpenClose) {
+        if (value === 'up') {
+          await this.homey.app.bond.sendBondAction(this.getData().id,"Close", {});
+        } 
+        if (value === 'down') {
+          await this.homey.app.bond.sendBondAction(this.getData().id,"Open", {});
+        } 
+      } else {
+        if (value === 'up') {
+          await this.homey.app.bond.sendBondAction(this.getData().id,"Open", {});
+        } 
+        if (value === 'down') {
+          await this.homey.app.bond.sendBondAction(this.getData().id,"Close", {});
+        } 
+
+      }
     });
   }
 

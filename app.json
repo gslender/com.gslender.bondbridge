@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.gslender.bondbridge",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#2f0fbb",
@@ -333,7 +333,18 @@
           "id": "deviceData",
           "type": "label",
           "label": {
-            "en": "Bond Device Data"
+            "en": "Bond Device Data",
+            "nl": "Bond Apparaatgegevens",
+            "de": "Bond-Gerätedaten",
+            "fr": "Données du dispositif Bond",
+            "it": "Dati del dispositivo Bond",
+            "sv": "Bond-enhetsdata",
+            "no": "Bond-enhetsdata",
+            "es": "Datos del dispositivo Bond",
+            "da": "Bond Enhedsdata",
+            "ru": "Данные устройства Bond",
+            "pl": "Dane urządzenia Bond",
+            "ko": "Bond 기기 데이터"
           },
           "value": ""
         },
@@ -341,7 +352,18 @@
           "id": "deviceProps",
           "type": "label",
           "label": {
-            "en": "Bond Device Properties"
+            "en": "Bond Device Properties",
+            "nl": "Bond Apparaateigenschappen",
+            "de": "Bond-Geräteeigenschaften",
+            "fr": "Propriétés du dispositif Bond",
+            "it": "Proprietà del dispositivo Bond",
+            "sv": "Bond-enhetens egenskaper",
+            "no": "Bond-enhetens egenskaper",
+            "es": "Propiedades del dispositivo Bond",
+            "da": "Bond Enhedsegenskaber",
+            "ru": "Свойства устройства Bond",
+            "pl": "Właściwości urządzenia Bond",
+            "ko": "Bond 기기 속성"
           },
           "value": ""
         }
@@ -396,7 +418,18 @@
           "id": "deviceData",
           "type": "label",
           "label": {
-            "en": "Bond Device Data"
+            "en": "Bond Device Data",
+            "nl": "Bond Apparaatgegevens",
+            "de": "Bond-Gerätedaten",
+            "fr": "Données du dispositif Bond",
+            "it": "Dati del dispositivo Bond",
+            "sv": "Bond-enhetsdata",
+            "no": "Bond-enhetsdata",
+            "es": "Datos del dispositivo Bond",
+            "da": "Bond Enhedsdata",
+            "ru": "Данные устройства Bond",
+            "pl": "Dane urządzenia Bond",
+            "ko": "Bond 기기 데이터"
           },
           "value": ""
         },
@@ -404,7 +437,18 @@
           "id": "deviceProps",
           "type": "label",
           "label": {
-            "en": "Bond Device Properties"
+            "en": "Bond Device Properties",
+            "nl": "Bond Apparaateigenschappen",
+            "de": "Bond-Geräteeigenschaften",
+            "fr": "Propriétés du dispositif Bond",
+            "it": "Proprietà del dispositivo Bond",
+            "sv": "Bond-enhetens egenskaper",
+            "no": "Bond-enhetens egenskaper",
+            "es": "Propiedades del dispositivo Bond",
+            "da": "Bond Enhedsegenskaber",
+            "ru": "Свойства устройства Bond",
+            "pl": "Właściwości urządzenia Bond",
+            "ko": "Bond 기기 속성"
           },
           "value": ""
         }
@@ -455,10 +499,37 @@
       "id": "shade",
       "settings": [
         {
+          "id": "flipOpenClose",
+          "type": "checkbox",
+          "value": false,
+          "label": {
+            "en": "Invert Open/Close"
+          }
+        },
+        {
+          "id": "flipPosition",
+          "type": "checkbox",
+          "value": false,
+          "label": {
+            "en": "Invert Position %"
+          }
+        },
+        {
           "id": "deviceData",
           "type": "label",
           "label": {
-            "en": "Bond Device Data"
+            "en": "Bond Device Data",
+            "nl": "Bond Apparaatgegevens",
+            "de": "Bond-Gerätedaten",
+            "fr": "Données du dispositif Bond",
+            "it": "Dati del dispositivo Bond",
+            "sv": "Bond-enhetsdata",
+            "no": "Bond-enhetsdata",
+            "es": "Datos del dispositivo Bond",
+            "da": "Bond Enhedsdata",
+            "ru": "Данные устройства Bond",
+            "pl": "Dane urządzenia Bond",
+            "ko": "Bond 기기 데이터"
           },
           "value": ""
         },
@@ -466,7 +537,18 @@
           "id": "deviceProps",
           "type": "label",
           "label": {
-            "en": "Bond Device Properties"
+            "en": "Bond Device Properties",
+            "nl": "Bond Apparaateigenschappen",
+            "de": "Bond-Geräteeigenschaften",
+            "fr": "Propriétés du dispositif Bond",
+            "it": "Proprietà del dispositivo Bond",
+            "sv": "Bond-enhetens egenskaper",
+            "no": "Bond-enhetens egenskaper",
+            "es": "Propiedades del dispositivo Bond",
+            "da": "Bond Enhedsegenskaber",
+            "ru": "Свойства устройства Bond",
+            "pl": "Właściwości urządzenia Bond",
+            "ko": "Bond 기기 속성"
           },
           "value": ""
         }

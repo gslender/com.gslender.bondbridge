@@ -61,5 +61,8 @@
   },
   "1.2.4": {
     "en": "Fix this.bond bug"
+  },
+  "1.2.5": {
+    "en": "Added invert position and open/close settings"
   }
 }
