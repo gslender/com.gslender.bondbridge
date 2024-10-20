@@ -65,9 +65,21 @@ class ShadeDevice extends Device {
     });
   }
 
+  async safeUpdateCapabilityValue(key, value) {
+    if (this.hasCapability(key)) {
+      if (typeof value !== 'undefined' && value !== null) {
+        await this.setCapabilityValue(key, value);
+      } else {
+        this.log(`value for capability '${key}' is undefined or null`);
+      }
+    } else {
+      this.log(`missing capability: '${key}'`);
+    }
+  }
+
   async updateCapabilityValues(state) {
     if (hasProperties(state.data,["open"])) {
-      await this.setCapabilityValue('windowcoverings_state', state.data.open === 1 ? 'up' : 'down');
+      await this.safeUpdateCapabilityValue('windowcoverings_state', state.data.open === 1 ? 'up' : 'down');
     }
   }
 }

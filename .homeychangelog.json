@@ -64,5 +64,8 @@
   },
   "1.2.5": {
     "en": "Added invert position and open/close settings"
+  },
+  "1.2.6": {
+    "en": "Safe update bug fix"
   }
 }

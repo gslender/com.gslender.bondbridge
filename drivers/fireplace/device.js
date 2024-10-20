@@ -30,35 +30,47 @@ class FireplaceDevice extends Device {
 
     this.registerCapabilityListener("fpfan_mode", async (value) => {
       if (value === 'off') {
-        await this.setCapabilityValue('onoff',false);
+        await this.safeUpdateCapabilityValue('onoff',false);
         await this.homey.app.bond.sendBondAction(this.getData().id,"TurnFpFanOff", {});
       } 
       if (value === 'low') {
-        await this.setCapabilityValue('onoff',true);
+        await this.safeUpdateCapabilityValue('onoff',true);
         await this.homey.app.bond.sendBondAction(this.getData().id,"SetFpFan", {"argument":1});
       } 
 
       if (value === 'medium') {
-        await this.setCapabilityValue('onoff',true);
+        await this.safeUpdateCapabilityValue('onoff',true);
         await this.homey.app.bond.sendBondAction(this.getData().id,"SetFpFan", {"argument":50});
       } 
 
       if (value === 'high') {
-        await this.setCapabilityValue('onoff',true);
+        await this.safeUpdateCapabilityValue('onoff',true);
         await this.homey.app.bond.sendBondAction(this.getData().id,"SetFpFan", {"argument":100});
       } 
     });
   }
 
+  async safeUpdateCapabilityValue(key, value) {
+    if (this.hasCapability(key)) {
+      if (typeof value !== 'undefined' && value !== null) {
+        await this.setCapabilityValue(key, value);
+      } else {
+        this.log(`value for capability '${key}' is undefined or null`);
+      }
+    } else {
+      this.log(`missing capability: '${key}'`);
+    }
+  }
+
   async updateCapabilityValues(state) {
     if (hasProperties(state.data,["fpfan_power","fpfan_mode"])) {
-      await this.setCapabilityValue('onoff', state.data.fpfan_power === 1);
+      await this.safeUpdateCapabilityValue('onoff', state.data.fpfan_power === 1);
       if (state.data.fpfan_speed == 100) {
-        await this.setCapabilityValue('fpfan_mode', 'high');
+        await this.safeUpdateCapabilityValue('fpfan_mode', 'high');
       } else if (state.data.fpfan_speed == 50) {
-        await this.setCapabilityValue('fpfan_mode', 'medium');
+        await this.safeUpdateCapabilityValue('fpfan_mode', 'medium');
       } else {
-        await this.setCapabilityValue('fpfan_mode', 'low');
+        await this.safeUpdateCapabilityValue('fpfan_mode', 'low');
       }
     }
   }

@@ -1,7 +1,7 @@
 'use strict';
 
 const { Device } = require('homey');
-const  stringify = require('json-stringify-safe');
+const stringify = require('json-stringify-safe');
 
 function hasProperties(obj, props) {
   if (!obj) return false;
@@ -79,21 +79,21 @@ class FanDevice extends Device {
       await this.removeCapability("fan_speed");
       this.registerCapabilityListener("fan_mode", async (value) => {
         if (value === 'off') {
-          await this.setCapabilityValue('onoff', false);
+          await this.safeUpdateCapabilityValue('onoff', false);
           await this.bond.sendBondAction(this.getData().id, "TurnOff", {});
         }
         if (value === 'low') {
-          await this.setCapabilityValue('onoff', true);
+          await this.safeUpdateCapabilityValue('onoff', true);
           await this.bond.sendBondAction(this.getData().id, "SetSpeed", { "argument": 1 });
         }
 
         if (value === 'medium') {
-          await this.setCapabilityValue('onoff', true);
+          await this.safeUpdateCapabilityValue('onoff', true);
           await this.bond.sendBondAction(this.getData().id, "SetSpeed", { "argument": 50 });
         }
 
         if (value === 'high') {
-          await this.setCapabilityValue('onoff', true);
+          await this.safeUpdateCapabilityValue('onoff', true);
           await this.bond.sendBondAction(this.getData().id, "SetSpeed", { "argument": 100 });
         }
       });
@@ -105,6 +105,18 @@ class FanDevice extends Device {
     });
   }
 
+  async safeUpdateCapabilityValue(key, value) {
+    if (this.hasCapability(key)) {
+      if (typeof value !== 'undefined' && value !== null) {
+        await this.setCapabilityValue(key, value);
+      } else {
+        this.log(`value for capability '${key}' is undefined or null`);
+      }
+    } else {
+      this.log(`missing capability: '${key}'`);
+    }
+  }
+
   async updateCapabilityValues(state) {
     this.props = this.props || {};
     this.props.data = this.props.data || {};
@@ -112,18 +124,18 @@ class FanDevice extends Device {
     if (hasProperties(this.props.data, ["feature_light"]) && this.props.data.feature_light) {
       // fan with light   
       if (hasProperties(state.data, ["light"])) {
-        await this.setCapabilityValue('onoff', state.data.light === 1);
+        await this.safeUpdateCapabilityValue('onoff', state.data.light === 1);
       }
       if (hasProperties(this.props.data, ["feature_brightness"]) && this.props.data.feature_brightness) {
 
         if (hasProperties(state.data, ["brightness"])) {
-          await this.setCapabilityValue('dim', state.data.brightness / 100);
+          await this.safeUpdateCapabilityValue('dim', state.data.brightness / 100);
         }
       }
     } else {
       // basic fan (no light)
       if (hasProperties(state.data, ["power"])) {
-        await this.setCapabilityValue('onoff', state.data.power === 1);
+        await this.safeUpdateCapabilityValue('onoff', state.data.power === 1);
       }
     }
 
@@ -131,7 +143,7 @@ class FanDevice extends Device {
       if (!this.hasCapability('fan_direction')) {
         await this.addCapability('fan_direction');
       } else {
-        await this.setCapabilityValue('fan_direction', `${state.data.direction}`);
+        await this.safeUpdateCapabilityValue('fan_direction', `${state.data.direction}`);
       }
     }
 
@@ -142,7 +154,7 @@ class FanDevice extends Device {
           await this.addCapability('fan_speed');
           await this.removeCapability('fan_mode');
         } else {
-          await this.setCapabilityValue('fan_speed', state.data.speed);
+          await this.safeUpdateCapabilityValue('fan_speed', state.data.speed);
         }
       } else {
         // fan without any max_speed (so assuming 3 speed mode)
@@ -151,11 +163,11 @@ class FanDevice extends Device {
           await this.removeCapability('fan_speed');
         } else {
           if (state.data.speed == 100) {
-            await this.setCapabilityValue('fan_mode', 'high');
+            await this.safeUpdateCapabilityValue('fan_mode', 'high');
           } else if (state.data.speed == 50) {
-            await this.setCapabilityValue('fan_mode', 'medium');
+            await this.safeUpdateCapabilityValue('fan_mode', 'medium');
           } else {
-            await this.setCapabilityValue('fan_mode', 'low');
+            await this.safeUpdateCapabilityValue('fan_mode', 'low');
           }
         }
       }
