@@ -1,15 +1,9 @@
 'use strict';
 
-const { Device } = require('homey');
+const BondDevice = require('../../lib/bond_device');
 const stringify = require('json-stringify-safe');
 
-function hasProperties(obj, props) {
-  if (!obj) return false;
-  return props.every(prop => obj.hasOwnProperty(prop));
-}
-
-
-class FanDevice extends Device {
+class FanDevice extends BondDevice {
 
   /**
    * onInit is called when the device is initialized.
@@ -20,13 +14,9 @@ class FanDevice extends Device {
   }
 
   async initialize() {
-    this.props = await this.bond.getBondDeviceProperties(this.getData().id);
-    const deviceData = await this.homey.app.bond.getBondDevice(this.getData().id);
-    this.log(`FanDevice has been initialized deviceData=${JSON.stringify(deviceData)} props=${JSON.stringify(this.props)}`);
-    this.setSettings({ deviceData: stringify(deviceData) });
-    this.setSettings({ deviceProps: stringify(this.props) });
+    await super.initialize('FanDevice');
 
-    if (hasProperties(this.props.data, ["feature_light"]) && this.props.data.feature_light) {
+    if (this.hasProperties(this.props.data, ["feature_light"]) && this.props.data.feature_light) {
       // fan with light   
       this.registerCapabilityListener("onoff", async (value) => {
         if (value) {
@@ -36,7 +26,7 @@ class FanDevice extends Device {
         }
       });
 
-      if (hasProperties(this.props.data, ["feature_brightness"]) && this.props.data.feature_brightness) {
+      if (this.hasProperties(this.props.data, ["feature_brightness"]) && this.props.data.feature_brightness) {
         // fan with light that dims
         await this.addCapability("dim");
         this.registerCapabilityListener("dim", async (value) => {
@@ -57,7 +47,7 @@ class FanDevice extends Device {
       });
     }
 
-    if (hasProperties(this.props.data, ["max_speed"])) {
+    if (this.hasProperties(this.props.data, ["max_speed"])) {
       // fan with max_speed 
       await this.addCapability("fan_speed");
       this.setCapabilityOptions("fan_speed", {
@@ -105,41 +95,27 @@ class FanDevice extends Device {
     });
   }
 
-  async safeUpdateCapabilityValue(key, value) {
-    if (this.hasCapability(key)) {
-      if (typeof value !== 'undefined' && value !== null) {
-        await this.setCapabilityValue(key, value);
-      } else {
-        this.log(`value for capability '${key}' is undefined or null`);
-      }
-    } else {
-      this.log(`missing capability: '${key}'`);
-    }
-  }
-
   async updateCapabilityValues(state) {
-    this.props = this.props || {};
-    this.props.data = this.props.data || {};
 
-    if (hasProperties(this.props.data, ["feature_light"]) && this.props.data.feature_light) {
+    if (this.hasProperties(this.props.data, ["feature_light"]) && this.props.data.feature_light) {
       // fan with light   
-      if (hasProperties(state.data, ["light"])) {
+      if (this.hasProperties(state.data, ["light"])) {
         await this.safeUpdateCapabilityValue('onoff', state.data.light === 1);
       }
-      if (hasProperties(this.props.data, ["feature_brightness"]) && this.props.data.feature_brightness) {
+      if (this.hasProperties(this.props.data, ["feature_brightness"]) && this.props.data.feature_brightness) {
 
-        if (hasProperties(state.data, ["brightness"])) {
+        if (this.hasProperties(state.data, ["brightness"])) {
           await this.safeUpdateCapabilityValue('dim', state.data.brightness / 100);
         }
       }
     } else {
       // basic fan (no light)
-      if (hasProperties(state.data, ["power"])) {
+      if (this.hasProperties(state.data, ["power"])) {
         await this.safeUpdateCapabilityValue('onoff', state.data.power === 1);
       }
     }
 
-    if (hasProperties(state.data, ["direction"])) {
+    if (this.hasProperties(state.data, ["direction"])) {
       if (!this.hasCapability('fan_direction')) {
         await this.addCapability('fan_direction');
       } else {
@@ -147,8 +123,8 @@ class FanDevice extends Device {
       }
     }
 
-    if (hasProperties(state.data, ["speed"])) {
-      if (hasProperties(this.props.data, ["max_speed"])) {
+    if (this.hasProperties(state.data, ["speed"])) {
+      if (this.hasProperties(this.props.data, ["max_speed"])) {
         // fan with max_speed   
         if (!this.hasCapability('fan_speed')) {
           await this.addCapability('fan_speed');

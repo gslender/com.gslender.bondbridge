@@ -67,5 +67,8 @@
   },
   "1.2.6": {
     "en": "Safe update bug fix"
+  },
+  "2.0.0": {
+    "en": "major re-write to fix fan light "
   }
 }

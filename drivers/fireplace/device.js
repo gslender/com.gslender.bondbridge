@@ -1,24 +1,20 @@
 'use strict';
 
-const { Device } = require('homey');
+const BondDevice = require('../../lib/bond_device');
 const stringify = require('json-stringify-safe');
 
-function hasProperties(obj, props) {
-  if (!obj) return false;
-  return props.every(prop => obj.hasOwnProperty(prop));
-}
-
-class FireplaceDevice extends Device {
+class FireplaceDevice extends BondDevice {
 
   /**
    * onInit is called when the device is initialized.
    */
   async onInit() {
-    this.props = await this.homey.app.bond.getBondDeviceProperties(this.getData().id);
-    const deviceData = await this.homey.app.bond.getBondDevice(this.getData().id);
-    this.log(`FireplaceDevice has been initialized deviceData=${JSON.stringify(deviceData)} props=${JSON.stringify(this.props)}`);
-    this.setSettings({ deviceData: stringify(deviceData) });
-    this.setSettings({ deviceProps: stringify(this.props) });
+    this.bond = this.homey.app.bond;
+    await this.initialize();
+  }
+
+  async initialize() {
+    await super.initialize('FireplaceDevice');
 
     this.registerCapabilityListener("onoff", async (value) => {
       if (value) {
@@ -50,20 +46,8 @@ class FireplaceDevice extends Device {
     });
   }
 
-  async safeUpdateCapabilityValue(key, value) {
-    if (this.hasCapability(key)) {
-      if (typeof value !== 'undefined' && value !== null) {
-        await this.setCapabilityValue(key, value);
-      } else {
-        this.log(`value for capability '${key}' is undefined or null`);
-      }
-    } else {
-      this.log(`missing capability: '${key}'`);
-    }
-  }
-
   async updateCapabilityValues(state) {
-    if (hasProperties(state.data,["fpfan_power","fpfan_mode"])) {
+    if (this.hasProperties(state.data,["fpfan_power","fpfan_mode"])) {
       await this.safeUpdateCapabilityValue('onoff', state.data.fpfan_power === 1);
       if (state.data.fpfan_speed == 100) {
         await this.safeUpdateCapabilityValue('fpfan_mode', 'high');

@@ -1,14 +1,9 @@
 'use strict';
 
-const { Device } = require('homey');
-const  stringify  = require('json-stringify-safe');
+const BondDevice = require('../../lib/bond_device');
+const stringify = require('json-stringify-safe');
 
-function hasProperties(obj, props) {
-  if (!obj) return false;
-  return props.every(prop => obj.hasOwnProperty(prop));
-}
-
-class ShadeDevice extends Device {
+class ShadeDevice extends BondDevice {
 
   /**
    * onInit is called when the device is initialized.
@@ -19,14 +14,9 @@ class ShadeDevice extends Device {
   }
 
   async initialize() {
-    this.props = await this.homey.app.bond.getBondDeviceProperties(this.getData().id);
-    const deviceData = await this.homey.app.bond.getBondDevice(this.getData().id);
-    this.log(`ShadeDevice has been initialized deviceData=${JSON.stringify(deviceData)} props=${JSON.stringify(this.props)}`);
-    this.setSettings({ deviceData: stringify(deviceData) });
-    this.setSettings({ deviceProps: stringify(this.props) });
-    
+    await super.initialize('ShadeDevice');    
 
-    if (hasProperties(this.props.data, ["feature_position"]) && this.props.data.feature_position) {
+    if (this.hasProperties(this.props.data, ["feature_position"]) && this.props.data.feature_position) {
       // shade with positioning
       await this.addCapability("windowcoverings_set");
       this.registerCapabilityListener("windowcoverings_set", async (value) => {
@@ -65,20 +55,8 @@ class ShadeDevice extends Device {
     });
   }
 
-  async safeUpdateCapabilityValue(key, value) {
-    if (this.hasCapability(key)) {
-      if (typeof value !== 'undefined' && value !== null) {
-        await this.setCapabilityValue(key, value);
-      } else {
-        this.log(`value for capability '${key}' is undefined or null`);
-      }
-    } else {
-      this.log(`missing capability: '${key}'`);
-    }
-  }
-
   async updateCapabilityValues(state) {
-    if (hasProperties(state.data,["open"])) {
+    if (this.hasProperties(state.data,["open"])) {
       await this.safeUpdateCapabilityValue('windowcoverings_state', state.data.open === 1 ? 'up' : 'down');
     }
   }
