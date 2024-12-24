@@ -59,6 +59,13 @@ class ShadeDevice extends BondDevice {
     if (this.hasProperties(state.data,["open"])) {
       await this.safeUpdateCapabilityValue('windowcoverings_state', state.data.open === 1 ? 'up' : 'down');
     }
+
+    if (this.hasProperties(state.data,["position"]) && this.hasCapability('windowcoverings_set')) {          
+      const flipPosition = this.getSetting('flipPosition');
+      let argVal = state.data.position / 100;
+      if (flipPosition) argVal = 1 - (argVal);
+      await this.safeUpdateCapabilityValue('windowcoverings_set', argVal);
+    }
   }
 }
 module.exports = ShadeDevice;

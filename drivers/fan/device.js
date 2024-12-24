@@ -16,7 +16,10 @@ class FanDevice extends BondDevice {
   async initialize() {
     await super.initialize('FanDevice');
 
-    if (this.hasProperties(this.props.data, ["feature_light"]) && this.props.data.feature_light) {
+
+    this.feature_light = this.deviceData.data.actions.includes("TurnLightOn");
+
+    if (this.feature_light) {
       // fan with light   
       this.registerCapabilityListener("onoff", async (value) => {
         if (value) {
@@ -97,7 +100,7 @@ class FanDevice extends BondDevice {
 
   async updateCapabilityValues(state) {
 
-    if (this.hasProperties(this.props.data, ["feature_light"]) && this.props.data.feature_light) {
+    if (this.feature_light) {
       // fan with light   
       if (this.hasProperties(state.data, ["light"])) {
         await this.safeUpdateCapabilityValue('onoff', state.data.light === 1);

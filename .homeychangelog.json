@@ -70,5 +70,8 @@
   },
   "2.0.0": {
     "en": "major re-write to fix fan light "
+  },
+  "2.0.1": {
+    "en": "Added check for action TurnLightOn"
   }
 }
