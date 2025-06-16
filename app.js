@@ -18,7 +18,7 @@ class BondBridgeApp extends Homey.App {
 
     this.homey.settings.on('set', this.onSettingsChanged.bind(this));
 
-    this.timeoutId = {};
+    this.pollingTimeoutId = {};
     this.state = {};
     this.state.devices = {};
 
@@ -27,7 +27,7 @@ class BondBridgeApp extends Homey.App {
     let bondIpAddressInvalid = true;
 
     if (this.bond.isIpAddressValid()) {
-      bondIpAddressInvalid = await this.checkStatus();
+      bondIpAddressInvalid = await this.checkStatus() !== Bond.VALID_TOKEN;
     }
 
     if (bondIpAddressInvalid) {
@@ -44,22 +44,28 @@ class BondBridgeApp extends Homey.App {
       discoveryStrategy.on("result", discoveryResult => {
         this.handleDiscoveryResult(discoveryResult);
       });
-    } 
+    }
   }
 
   async checkStatus() {
     this.bond = this.newBondInstance();
-    return new Promise(async (resolve, reject) => {
+    // return new Promise(async (resolve, reject) => {
+    try {
       const response = await this.bond.getBondDevices();
       if (response.status === Bond.VALID_TOKEN) {
-        this.homey.clearInterval(this.timeoutId);
+        this.homey.clearInterval(this.pollingTimeoutId);
         this.homey.setTimeout(async () => {
           this.startPolling();
         }, this.getRandomNumber(750, 1750));
       }
       this.log('response=', response);
-      resolve(response.status);
-    });
+      return response.status;
+    } catch (error) {
+      this.log('response=', error);
+    }
+    return Bond.INVALID_TOKEN;
+    //   resolve(response.status);
+    // });
   }
 
   getRandomNumber(min, max) {
@@ -69,7 +75,7 @@ class BondBridgeApp extends Homey.App {
   onSettingsChanged(key) {
     if (key === 'bond.polling' || key === 'bond.ipaddress' || key === 'bond.token') {
       this.bond = this.newBondInstance();
-      this.homey.clearInterval(this.timeoutId);
+      this.homey.clearInterval(this.pollingTimeoutId);
       this.homey.setTimeout(async () => {
         this.startPolling();
         await this.homey.api.realtime("settingsChanged", "otherSuccess");
@@ -81,7 +87,7 @@ class BondBridgeApp extends Homey.App {
     this.log("handleDiscoveryResult.address:", discoveryResult.address);
     this.homey.settings.set('bond.ipaddress', discoveryResult.address);
     this.bond = this.newBondInstance();
-    this.homey.clearInterval(this.timeoutId);
+    this.homey.clearInterval(this.pollingTimeoutId);
     this.startPolling();
   }
 
@@ -100,7 +106,7 @@ class BondBridgeApp extends Homey.App {
       this.state.firmware = resultFmw.fw_ver;
       this.log(`getFirmware=${resultFmw.fw_ver}`);
       this.pollStatus();
-      this.timeoutId = this.homey.setInterval(() => {
+      this.pollingTimeoutId = this.homey.setInterval(() => {
         this.pollStatus();
       }, pollingInterval);
     }
@@ -112,9 +118,12 @@ class BondBridgeApp extends Homey.App {
     for (const driver in drivers) {
       const devices = this.homey.drivers.getDriver(driver).getDevices();
       for (const device of devices) {
-        const deviceID = device.getData().id;
-        const state = await this.bond.getBondDeviceState(deviceID);
-        if (state.status === Bond.OKAY) device.updateCapabilityValues(state);
+        try {
+          const deviceID = device.getData().id;
+          const state = await this.bond.getBondDeviceState(deviceID);
+          if (state.status === Bond.OKAY) device.updateCapabilityValues(state); 
+        } catch (error) {
+        }
       }
     }
   }

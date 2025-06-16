@@ -20,6 +20,7 @@ class FanDevice extends BondDevice {
     this.feature_light = this.deviceData.data.actions.includes("TurnLightOn");
 
     if (this.feature_light) {
+      await this.addCapability("onoff");
       // fan with light   
       this.registerCapabilityListener("onoff", async (value) => {
         if (value) {
@@ -29,7 +30,7 @@ class FanDevice extends BondDevice {
         }
       });
 
-      if (this.hasProperties(this.props.data, ["feature_brightness"]) && this.props.data.feature_brightness) {
+      if (this.hasProperties(this.props?.data, ["feature_brightness"]) && this.props?.data?.feature_brightness) {
         // fan with light that dims
         await this.addCapability("dim");
         this.registerCapabilityListener("dim", async (value) => {
@@ -50,15 +51,15 @@ class FanDevice extends BondDevice {
       });
     }
 
-    if (this.hasProperties(this.props.data, ["max_speed"])) {
+    if (this.hasProperties(this.props?.data, ["max_speed"])) {
       // fan with max_speed 
       await this.addCapability("fan_speed");
       this.setCapabilityOptions("fan_speed", {
         min: 0,
-        max: this.props.data.max_speed
+        max: this.props?.data?.max_speed
       });
       this.registerCapabilityListener("fan_speed", async (value) => {
-        if (value == 0) {
+        if (value === 0) {
           await this.bond.sendBondAction(this.getData().id, "TurnOff", {});
         } else {
           await this.bond.sendBondAction(this.getData().id, "TurnOn", {});
@@ -105,7 +106,7 @@ class FanDevice extends BondDevice {
       if (this.hasProperties(state.data, ["light"])) {
         await this.safeUpdateCapabilityValue('onoff', state.data.light === 1);
       }
-      if (this.hasProperties(this.props.data, ["feature_brightness"]) && this.props.data.feature_brightness) {
+      if (this.hasProperties(this.props?.data, ["feature_brightness"]) && this.props?.data.feature_brightness) {
 
         if (this.hasProperties(state.data, ["brightness"])) {
           await this.safeUpdateCapabilityValue('dim', state.data.brightness / 100);
@@ -127,7 +128,7 @@ class FanDevice extends BondDevice {
     }
 
     if (this.hasProperties(state.data, ["speed"])) {
-      if (this.hasProperties(this.props.data, ["max_speed"])) {
+      if (this.hasProperties(this.props?.data, ["max_speed"])) {
         // fan with max_speed   
         if (!this.hasCapability('fan_speed')) {
           await this.addCapability('fan_speed');
@@ -141,9 +142,9 @@ class FanDevice extends BondDevice {
           await this.addCapability('fan_mode');
           await this.removeCapability('fan_speed');
         } else {
-          if (state.data.speed == 100) {
+          if (state.data.speed === 100) {
             await this.safeUpdateCapabilityValue('fan_mode', 'high');
-          } else if (state.data.speed == 50) {
+          } else if (state.data.speed === 50) {
             await this.safeUpdateCapabilityValue('fan_mode', 'medium');
           } else {
             await this.safeUpdateCapabilityValue('fan_mode', 'low');

@@ -16,7 +16,7 @@ class ShadeDevice extends BondDevice {
   async initialize() {
     await super.initialize('ShadeDevice');    
 
-    if (this.hasProperties(this.props.data, ["feature_position"]) && this.props.data.feature_position) {
+    if (this.hasProperties(this.props?.data, ["feature_position"]) && this.props?.data?.feature_position) {
       // shade with positioning
       await this.addCapability("windowcoverings_set");
       this.registerCapabilityListener("windowcoverings_set", async (value) => {
@@ -32,23 +32,23 @@ class ShadeDevice extends BondDevice {
     this.registerCapabilityListener("windowcoverings_state", async (value) => {
       this.log('state',value);
       if (value === 'idle') {
-        await this.homey.app.bond.sendBondAction(this.getData().id,"Hold", {});
+        await this.bond.sendBondAction(this.getData().id,"Hold", {});
         return;
       } 
       const flipOpenClose = this.getSetting('flipOpenClose');
       if (flipOpenClose) {
         if (value === 'up') {
-          await this.homey.app.bond.sendBondAction(this.getData().id,"Close", {});
+          await this.bond.sendBondAction(this.getData().id,"Close", {});
         } 
         if (value === 'down') {
-          await this.homey.app.bond.sendBondAction(this.getData().id,"Open", {});
+          await this.bond.sendBondAction(this.getData().id,"Open", {});
         } 
       } else {
         if (value === 'up') {
-          await this.homey.app.bond.sendBondAction(this.getData().id,"Open", {});
+          await this.bond.sendBondAction(this.getData().id,"Open", {});
         } 
         if (value === 'down') {
-          await this.homey.app.bond.sendBondAction(this.getData().id,"Close", {});
+          await this.bond.sendBondAction(this.getData().id,"Close", {});
         } 
 
       }
@@ -57,7 +57,11 @@ class ShadeDevice extends BondDevice {
 
   async updateCapabilityValues(state) {
     if (this.hasProperties(state.data,["open"])) {
-      await this.safeUpdateCapabilityValue('windowcoverings_state', state.data.open === 1 ? 'up' : 'down');
+      let openState = state.data.open === 1 ? 'up' : 'down';
+      if(this.getSetting('flipOpenClose')) {
+          openState = (openState === 'up' ? 'down' : 'up');
+      }
+      await this.safeUpdateCapabilityValue('windowcoverings_state', openState);
     }
 
     if (this.hasProperties(state.data,["position"]) && this.hasCapability('windowcoverings_set')) {          

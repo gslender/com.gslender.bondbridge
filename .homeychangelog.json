@@ -73,5 +73,11 @@
   },
   "2.0.1": {
     "en": "Added check for action TurnLightOn"
+  },
+  "2.0.2": {
+    "en": "undefined check bug"
+  },
+  "2.0.3": {
+    "en": "code clean up and minor fixes"
   }
 }
