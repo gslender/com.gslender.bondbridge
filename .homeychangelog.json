@@ -79,5 +79,8 @@
   },
   "2.0.3": {
     "en": "code clean up and minor fixes"
+  },
+  "2.0.4": {
+    "en": "fix getBondFirmware bug"
   }
 }
