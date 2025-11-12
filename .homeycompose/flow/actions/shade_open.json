@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Open shade"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=shade"
+    }
+  ]
+}

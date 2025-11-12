@@ -1,0 +1,48 @@
+{
+  "title": {
+    "en": "Fireplace fan mode is"
+  },
+  "titleFormatted": {
+    "en": "Fireplace fan mode is [[fireplace_mode]]"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=fireplace"
+    },
+    {
+      "type": "dropdown",
+      "name": "fireplace_mode",
+      "title": {
+        "en": "Mode"
+      },
+      "values": [
+        {
+          "id": "off",
+          "title": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "low",
+          "title": {
+            "en": "Low"
+          }
+        },
+        {
+          "id": "medium",
+          "title": {
+            "en": "Medium"
+          }
+        },
+        {
+          "id": "high",
+          "title": {
+            "en": "High"
+          }
+        }
+      ]
+    }
+  ]
+}

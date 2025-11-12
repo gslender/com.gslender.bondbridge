@@ -1,0 +1,21 @@
+{
+  "title": {
+    "en": "Fan light state changed"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=fan"
+    }
+  ],
+  "tokens": [
+    {
+      "type": "boolean",
+      "name": "light_on",
+      "title": {
+        "en": "Light on"
+      }
+    }
+  ]
+}

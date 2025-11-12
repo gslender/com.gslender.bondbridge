@@ -1,0 +1,25 @@
+{
+  "title": {
+    "en": "Set shade position"
+  },
+  "titleFormatted": {
+    "en": "Set shade position to [[position]]"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=shade"
+    },
+    {
+      "type": "number",
+      "name": "position",
+      "title": {
+        "en": "Position (%)"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1
+    }
+  ]
+}

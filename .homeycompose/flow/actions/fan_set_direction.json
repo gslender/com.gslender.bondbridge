@@ -1,0 +1,36 @@
+{
+  "title": {
+    "en": "Set fan direction"
+  },
+  "titleFormatted": {
+    "en": "Set fan direction to [[direction]]"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=fan"
+    },
+    {
+      "type": "dropdown",
+      "name": "direction",
+      "title": {
+        "en": "Direction"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Forward"
+          }
+        },
+        {
+          "id": "-1",
+          "title": {
+            "en": "Reverse"
+          }
+        }
+      ]
+    }
+  ]
+}

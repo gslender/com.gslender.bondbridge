@@ -1,0 +1,42 @@
+{
+  "title": {
+    "en": "Shade state is"
+  },
+  "titleFormatted": {
+    "en": "Shade state is [[state]]"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=shade"
+    },
+    {
+      "type": "dropdown",
+      "name": "state",
+      "title": {
+        "en": "State"
+      },
+      "values": [
+        {
+          "id": "up",
+          "title": {
+            "en": "Open"
+          }
+        },
+        {
+          "id": "down",
+          "title": {
+            "en": "Closed"
+          }
+        },
+        {
+          "id": "idle",
+          "title": {
+            "en": "Idle"
+          }
+        }
+      ]
+    }
+  ]
+}

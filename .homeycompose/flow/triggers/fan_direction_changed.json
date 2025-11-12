@@ -1,0 +1,24 @@
+{
+  "title": {
+    "en": "Fan direction changed"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=fan"
+    }
+  ],
+  "tokens": [
+    {
+      "type": "string",
+      "name": "fan_direction",
+      "title": {
+        "en": "Direction"
+      },
+      "example": {
+        "en": "1"
+      }
+    }
+  ]
+}

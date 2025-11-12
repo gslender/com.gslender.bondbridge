@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Stop shade"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=shade"
+    }
+  ]
+}

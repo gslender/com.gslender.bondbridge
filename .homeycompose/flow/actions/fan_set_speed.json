@@ -1,0 +1,28 @@
+{
+  "title": {
+    "en": "Set fan speed"
+  },
+  "titleFormatted": {
+    "en": "Set fan speed to [[speed]]"
+  },
+  "hint": {
+    "en": "Uses the device's numeric speed steps"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=fan"
+    },
+    {
+      "type": "number",
+      "name": "speed",
+      "title": {
+        "en": "Speed"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1
+    }
+  ]
+}

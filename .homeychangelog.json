@@ -82,5 +82,8 @@
   },
   "2.0.4": {
     "en": "fix getBondFirmware bug"
+  },
+  "2.1.0": {
+    "en": "Added missing flows"
   }
 }

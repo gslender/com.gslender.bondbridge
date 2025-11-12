@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.gslender.bondbridge",
-  "version": "2.0.4",
+  "version": "2.1.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#2f0fbb",
@@ -60,6 +60,53 @@
   },
   "flow": {
     "triggers": [
+      {
+        "title": {
+          "en": "Fan direction changed"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fan"
+          }
+        ],
+        "tokens": [
+          {
+            "type": "string",
+            "name": "fan_direction",
+            "title": {
+              "en": "Direction"
+            },
+            "example": {
+              "en": "1"
+            }
+          }
+        ],
+        "id": "fan_direction_changed"
+      },
+      {
+        "title": {
+          "en": "Fan light state changed"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fan"
+          }
+        ],
+        "tokens": [
+          {
+            "type": "boolean",
+            "name": "light_on",
+            "title": {
+              "en": "Light on"
+            }
+          }
+        ],
+        "id": "fan_light_state_changed"
+      },
       {
         "title": {
           "en": "Fan mode has changed",
@@ -206,6 +253,28 @@
       },
       {
         "title": {
+          "en": "Fireplace state changed"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fireplace"
+          }
+        ],
+        "tokens": [
+          {
+            "type": "boolean",
+            "name": "onoff",
+            "title": {
+              "en": "Fireplace on"
+            }
+          }
+        ],
+        "id": "fireplace_onoff_changed"
+      },
+      {
+        "title": {
           "en": "Fireplace fan mode has changed",
           "nl": "De modus van de haardventilator is veranderd",
           "da": "Pejsblæserens tilstand er blevet ændret",
@@ -275,6 +344,594 @@
           }
         ],
         "id": "fpfan_mode_changed"
+      },
+      {
+        "title": {
+          "en": "Shade position changed"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=shade"
+          }
+        ],
+        "tokens": [
+          {
+            "type": "number",
+            "name": "position",
+            "title": {
+              "en": "Position (%)"
+            },
+            "example": {
+              "en": "50"
+            }
+          }
+        ],
+        "id": "shade_position_changed"
+      },
+      {
+        "title": {
+          "en": "Shade state changed"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=shade"
+          }
+        ],
+        "tokens": [
+          {
+            "type": "string",
+            "name": "state",
+            "title": {
+              "en": "State"
+            },
+            "example": {
+              "en": "up"
+            }
+          }
+        ],
+        "id": "shade_state_changed"
+      }
+    ],
+    "conditions": [
+      {
+        "title": {
+          "en": "Fan direction is"
+        },
+        "titleFormatted": {
+          "en": "Fan direction is [[direction]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fan"
+          },
+          {
+            "type": "dropdown",
+            "name": "direction",
+            "title": {
+              "en": "Direction"
+            },
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "Forward"
+                }
+              },
+              {
+                "id": "-1",
+                "title": {
+                  "en": "Reverse"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "fan_direction_is"
+      },
+      {
+        "title": {
+          "en": "Fan light is on"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fan"
+          }
+        ],
+        "id": "fan_light_is_on"
+      },
+      {
+        "title": {
+          "en": "Fan mode is"
+        },
+        "titleFormatted": {
+          "en": "Fan mode is [[fan_mode]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fan"
+          },
+          {
+            "type": "dropdown",
+            "name": "fan_mode",
+            "title": {
+              "en": "Mode"
+            },
+            "values": [
+              {
+                "id": "off",
+                "title": {
+                  "en": "Off"
+                }
+              },
+              {
+                "id": "low",
+                "title": {
+                  "en": "Low"
+                }
+              },
+              {
+                "id": "medium",
+                "title": {
+                  "en": "Medium"
+                }
+              },
+              {
+                "id": "high",
+                "title": {
+                  "en": "High"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "fan_mode_is"
+      },
+      {
+        "title": {
+          "en": "Fan speed equals"
+        },
+        "titleFormatted": {
+          "en": "Fan mode is [[speed]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fan"
+          },
+          {
+            "type": "number",
+            "name": "speed",
+            "title": {
+              "en": "Speed"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1
+          }
+        ],
+        "id": "fan_speed_is"
+      },
+      {
+        "title": {
+          "en": "Fireplace is on"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fireplace"
+          }
+        ],
+        "id": "fireplace_is_on"
+      },
+      {
+        "title": {
+          "en": "Fireplace fan mode is"
+        },
+        "titleFormatted": {
+          "en": "Fireplace fan mode is [[fireplace_mode]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fireplace"
+          },
+          {
+            "type": "dropdown",
+            "name": "fireplace_mode",
+            "title": {
+              "en": "Mode"
+            },
+            "values": [
+              {
+                "id": "off",
+                "title": {
+                  "en": "Off"
+                }
+              },
+              {
+                "id": "low",
+                "title": {
+                  "en": "Low"
+                }
+              },
+              {
+                "id": "medium",
+                "title": {
+                  "en": "Medium"
+                }
+              },
+              {
+                "id": "high",
+                "title": {
+                  "en": "High"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "fireplace_mode_is"
+      },
+      {
+        "title": {
+          "en": "Shade position equals"
+        },
+        "titleFormatted": {
+          "en": "Shade position is [[position]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=shade"
+          },
+          {
+            "type": "number",
+            "name": "position",
+            "title": {
+              "en": "Position (%)"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1
+          }
+        ],
+        "id": "shade_position_is"
+      },
+      {
+        "title": {
+          "en": "Shade state is"
+        },
+        "titleFormatted": {
+          "en": "Shade state is [[state]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=shade"
+          },
+          {
+            "type": "dropdown",
+            "name": "state",
+            "title": {
+              "en": "State"
+            },
+            "values": [
+              {
+                "id": "up",
+                "title": {
+                  "en": "Open"
+                }
+              },
+              {
+                "id": "down",
+                "title": {
+                  "en": "Closed"
+                }
+              },
+              {
+                "id": "idle",
+                "title": {
+                  "en": "Idle"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "shade_state_is"
+      }
+    ],
+    "actions": [
+      {
+        "title": {
+          "en": "Set fan direction"
+        },
+        "titleFormatted": {
+          "en": "Set fan direction to [[direction]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fan"
+          },
+          {
+            "type": "dropdown",
+            "name": "direction",
+            "title": {
+              "en": "Direction"
+            },
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "Forward"
+                }
+              },
+              {
+                "id": "-1",
+                "title": {
+                  "en": "Reverse"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "fan_set_direction"
+      },
+      {
+        "title": {
+          "en": "Set fan light brightness"
+        },
+        "titleFormatted": {
+          "en": "Set fan light brightness to [[brightness]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fan"
+          },
+          {
+            "type": "number",
+            "name": "brightness",
+            "title": {
+              "en": "Brightness"
+            },
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ],
+        "id": "fan_set_light_brightness"
+      },
+      {
+        "title": {
+          "en": "Set fan light state"
+        },
+        "titleFormatted": {
+          "en": "Set fan light state to [[light_on]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fan"
+          },
+          {
+            "type": "checkbox",
+            "name": "light_on",
+            "title": {
+              "en": "Turn light on"
+            }
+          }
+        ],
+        "id": "fan_set_light_state"
+      },
+      {
+        "title": {
+          "en": "Set fan mode"
+        },
+        "titleFormatted": {
+          "en": "Set fan mode to [[fan_mode]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fan"
+          },
+          {
+            "type": "dropdown",
+            "name": "fan_mode",
+            "title": {
+              "en": "Mode"
+            },
+            "values": [
+              {
+                "id": "off",
+                "title": {
+                  "en": "Off"
+                }
+              },
+              {
+                "id": "low",
+                "title": {
+                  "en": "Low"
+                }
+              },
+              {
+                "id": "medium",
+                "title": {
+                  "en": "Medium"
+                }
+              },
+              {
+                "id": "high",
+                "title": {
+                  "en": "High"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "fan_set_mode"
+      },
+      {
+        "title": {
+          "en": "Set fan speed"
+        },
+        "titleFormatted": {
+          "en": "Set fan speed to [[speed]]"
+        },
+        "hint": {
+          "en": "Uses the device's numeric speed steps"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fan"
+          },
+          {
+            "type": "number",
+            "name": "speed",
+            "title": {
+              "en": "Speed"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1
+          }
+        ],
+        "id": "fan_set_speed"
+      },
+      {
+        "title": {
+          "en": "Set fireplace fan mode"
+        },
+        "titleFormatted": {
+          "en": "Set fireplace mode to [[fireplace_mode]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=fireplace"
+          },
+          {
+            "type": "dropdown",
+            "name": "fireplace_mode",
+            "title": {
+              "en": "Mode"
+            },
+            "values": [
+              {
+                "id": "off",
+                "title": {
+                  "en": "Off"
+                }
+              },
+              {
+                "id": "low",
+                "title": {
+                  "en": "Low"
+                }
+              },
+              {
+                "id": "medium",
+                "title": {
+                  "en": "Medium"
+                }
+              },
+              {
+                "id": "high",
+                "title": {
+                  "en": "High"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "fireplace_set_mode"
+      },
+      {
+        "title": {
+          "en": "Close shade"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=shade"
+          }
+        ],
+        "id": "shade_close"
+      },
+      {
+        "title": {
+          "en": "Open shade"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=shade"
+          }
+        ],
+        "id": "shade_open"
+      },
+      {
+        "title": {
+          "en": "Set shade position"
+        },
+        "titleFormatted": {
+          "en": "Set shade position to [[position]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=shade"
+          },
+          {
+            "type": "number",
+            "name": "position",
+            "title": {
+              "en": "Position (%)"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1
+          }
+        ],
+        "id": "shade_set_position"
+      },
+      {
+        "title": {
+          "en": "Stop shade"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=shade"
+          }
+        ],
+        "id": "shade_stop"
       }
     ]
   },

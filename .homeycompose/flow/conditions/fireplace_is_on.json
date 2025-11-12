@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Fireplace is on"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=fireplace"
+    }
+  ]
+}

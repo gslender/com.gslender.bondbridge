@@ -1,0 +1,22 @@
+{
+  "title": {
+    "en": "Set fan light state"
+  },
+  "titleFormatted": {
+    "en": "Set fan light state to [[light_on]]"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=fan"
+    },
+    {
+      "type": "checkbox",
+      "name": "light_on",
+      "title": {
+        "en": "Turn light on"
+      }
+    }
+  ]
+}

@@ -24,9 +24,9 @@ class FanDevice extends BondDevice {
       // fan with light   
       this.registerCapabilityListener("onoff", async (value) => {
         if (value) {
-          await this.bond.sendBondAction(this.getData().id, "TurnLightOn", {});
+          await this.runBondAction("TurnLightOn", {});
         } else {
-          await this.bond.sendBondAction(this.getData().id, "TurnLightOff", {});
+          await this.runBondAction("TurnLightOff", {});
         }
       });
 
@@ -34,7 +34,7 @@ class FanDevice extends BondDevice {
         // fan with light that dims
         await this.addCapability("dim");
         this.registerCapabilityListener("dim", async (value) => {
-          await this.bond.sendBondAction(this.getData().id, "SetBrightness", { "argument": value * 100 });
+          await this.runBondAction("SetBrightness", { "argument": value * 100 });
         });
       } else {
         await this.removeCapability("dim");
@@ -44,9 +44,9 @@ class FanDevice extends BondDevice {
       await this.removeCapability("dim");
       this.registerCapabilityListener("onoff", async (value) => {
         if (value) {
-          await this.bond.sendBondAction(this.getData().id, "TurnOn", {});
+          await this.runBondAction("TurnOn", {});
         } else {
-          await this.bond.sendBondAction(this.getData().id, "TurnOff", {});
+          await this.runBondAction("TurnOff", {});
         }
       });
     }
@@ -60,10 +60,10 @@ class FanDevice extends BondDevice {
       });
       this.registerCapabilityListener("fan_speed", async (value) => {
         if (value === 0) {
-          await this.bond.sendBondAction(this.getData().id, "TurnOff", {});
+          await this.runBondAction("TurnOff", {});
         } else {
-          await this.bond.sendBondAction(this.getData().id, "TurnOn", {});
-          await this.bond.sendBondAction(this.getData().id, "SetSpeed", { "argument": value });
+          await this.runBondAction("TurnOn", {});
+          await this.runBondAction("SetSpeed", { "argument": value });
         }
       });
       await this.removeCapability("fan_mode");
@@ -74,28 +74,28 @@ class FanDevice extends BondDevice {
       this.registerCapabilityListener("fan_mode", async (value) => {
         if (value === 'off') {
           await this.safeUpdateCapabilityValue('onoff', false);
-          await this.bond.sendBondAction(this.getData().id, "TurnOff", {});
+          await this.runBondAction("TurnOff", {});
         }
         if (value === 'low') {
           await this.safeUpdateCapabilityValue('onoff', true);
-          await this.bond.sendBondAction(this.getData().id, "SetSpeed", { "argument": 1 });
+          await this.runBondAction("SetSpeed", { "argument": 1 });
         }
 
         if (value === 'medium') {
           await this.safeUpdateCapabilityValue('onoff', true);
-          await this.bond.sendBondAction(this.getData().id, "SetSpeed", { "argument": 50 });
+          await this.runBondAction("SetSpeed", { "argument": 50 });
         }
 
         if (value === 'high') {
           await this.safeUpdateCapabilityValue('onoff', true);
-          await this.bond.sendBondAction(this.getData().id, "SetSpeed", { "argument": 100 });
+          await this.runBondAction("SetSpeed", { "argument": 100 });
         }
       });
     }
 
     await this.addCapability("fan_direction");
     this.registerCapabilityListener("fan_direction", async (value) => {
-      await this.bond.sendBondAction(this.getData().id, "SetDirection", { "argument": Number(value) });
+      await this.runBondAction("SetDirection", { "argument": Number(value) });
     });
   }
 
@@ -104,7 +104,12 @@ class FanDevice extends BondDevice {
     if (this.feature_light) {
       // fan with light   
       if (this.hasProperties(state.data, ["light"])) {
-        await this.safeUpdateCapabilityValue('onoff', state.data.light === 1);
+        const prevLightState = this.getCapabilityValue('onoff');
+        const nextLightState = state.data.light === 1;
+        await this.safeUpdateCapabilityValue('onoff', nextLightState);
+        if (prevLightState !== nextLightState) {
+          this.driver?.triggerFanLightStateChanged?.(this, { light_on: nextLightState });
+        }
       }
       if (this.hasProperties(this.props?.data, ["feature_brightness"]) && this.props?.data.feature_brightness) {
 
@@ -123,7 +128,12 @@ class FanDevice extends BondDevice {
       if (!this.hasCapability('fan_direction')) {
         await this.addCapability('fan_direction');
       } else {
-        await this.safeUpdateCapabilityValue('fan_direction', `${state.data.direction}`);
+        const prevDirection = this.getCapabilityValue('fan_direction');
+        const nextDirection = `${state.data.direction}`;
+        await this.safeUpdateCapabilityValue('fan_direction', nextDirection);
+        if (prevDirection !== nextDirection) {
+          this.driver?.triggerFanDirectionChanged?.(this, { fan_direction: nextDirection });
+        }
       }
     }
 
@@ -134,7 +144,11 @@ class FanDevice extends BondDevice {
           await this.addCapability('fan_speed');
           await this.removeCapability('fan_mode');
         } else {
+          const prevSpeed = this.getCapabilityValue('fan_speed');
           await this.safeUpdateCapabilityValue('fan_speed', state.data.speed);
+          if (prevSpeed !== state.data.speed) {
+            this.driver?.triggerFanSpeedChanged?.(this, { fan_speed: `${state.data.speed}` });
+          }
         }
       } else {
         // fan without any max_speed (so assuming 3 speed mode)
@@ -142,16 +156,102 @@ class FanDevice extends BondDevice {
           await this.addCapability('fan_mode');
           await this.removeCapability('fan_speed');
         } else {
+          let modeValue = 'low';
           if (state.data.speed === 100) {
-            await this.safeUpdateCapabilityValue('fan_mode', 'high');
+            modeValue = 'high';
           } else if (state.data.speed === 50) {
-            await this.safeUpdateCapabilityValue('fan_mode', 'medium');
-          } else {
-            await this.safeUpdateCapabilityValue('fan_mode', 'low');
+            modeValue = 'medium';
+          } else if (state.data.speed === 0) {
+            modeValue = 'off';
+          }
+          const prevMode = this.getCapabilityValue('fan_mode');
+          await this.safeUpdateCapabilityValue('fan_mode', modeValue);
+          if (prevMode !== modeValue) {
+            this.driver?.triggerFanModeChanged?.(this, { fan_mode: modeValue });
           }
         }
       }
     }
+  }
+
+  async setFanModeFromFlow(mode) {
+    if (!this.hasCapability('fan_mode')) {
+      throw new Error('Fan does not support discrete modes');
+    }
+    const allowed = ['off', 'low', 'medium', 'high'];
+    if (!allowed.includes(mode)) {
+      throw new Error('Unsupported fan mode');
+    }
+    await this.setCapabilityValue('fan_mode', mode);
+  }
+
+  async setFanSpeedFromFlow(speed) {
+    if (!this.hasCapability('fan_speed')) {
+      throw new Error('Fan does not support numeric speed');
+    }
+    const numericSpeed = Number(speed);
+    if (Number.isNaN(numericSpeed)) {
+      throw new Error('Speed must be a number');
+    }
+    const maxSpeed = Number(this.props?.data?.max_speed) || 100;
+    const boundedSpeed = Math.max(0, Math.min(maxSpeed, numericSpeed));
+    await this.setCapabilityValue('fan_speed', boundedSpeed);
+  }
+
+  async setFanDirectionFromFlow(direction) {
+    if (!this.hasCapability('fan_direction')) {
+      throw new Error('Fan does not support direction control');
+    }
+    const dirValue = `${direction}`;
+    if (dirValue !== '1' && dirValue !== '-1') {
+      throw new Error('Direction must be forward or reverse');
+    }
+    await this.setCapabilityValue('fan_direction', dirValue);
+  }
+
+  async setFanLightStateFromFlow(on) {
+    if (!this.feature_light) {
+      throw new Error('Fan has no light');
+    }
+    await this.setCapabilityValue('onoff', Boolean(on));
+  }
+
+  async setFanLightBrightnessFromFlow(level) {
+    if (!this.feature_light || !this.hasCapability('dim')) {
+      throw new Error('Fan light does not support dimming');
+    }
+    if (level < 0 || level > 1) {
+      throw new Error('Brightness must be between 0 and 1');
+    }
+    await this.setCapabilityValue('dim', Number(level));
+  }
+
+  async isFanMode(mode) {
+    if (!this.hasCapability('fan_mode')) {
+      return false;
+    }
+    return this.getCapabilityValue('fan_mode') === mode;
+  }
+
+  async isFanSpeed(speed) {
+    if (!this.hasCapability('fan_speed')) {
+      return false;
+    }
+    return Number(this.getCapabilityValue('fan_speed')) === Number(speed);
+  }
+
+  async isFanDirection(direction) {
+    if (!this.hasCapability('fan_direction')) {
+      return false;
+    }
+    return this.getCapabilityValue('fan_direction') === direction;
+  }
+
+  async isFanLightOn() {
+    if (!this.feature_light) {
+      return false;
+    }
+    return this.getCapabilityValue('onoff') === true;
   }
 }
 
