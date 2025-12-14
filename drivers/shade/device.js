@@ -20,39 +20,47 @@ class ShadeDevice extends BondDevice {
       // shade with positioning
       await this.addCapability("windowcoverings_set");
       this.registerCapabilityListener("windowcoverings_set", async (value) => {
-        const flipPosition = this.getSetting('flipPosition');
-        let argVal = value * 100;
-        if (flipPosition) argVal = 100 - (argVal);
-        await this.runBondAction("SetPosition", { "argument": argVal });
+        await this.setWindowcoveringsPosition(value);
       });
     } else {
       await this.removeCapability("windowcoverings_set");
     }
 
     this.registerCapabilityListener("windowcoverings_state", async (value) => {
-      this.log('state',value);
-      if (value === 'idle') {
-        await this.runBondAction("Hold", {});
-        return;
-      } 
-      const flipOpenClose = this.getSetting('flipOpenClose');
-      if (flipOpenClose) {
-        if (value === 'up') {
-          await this.runBondAction("Close", {});
-        } 
-        if (value === 'down') {
-          await this.runBondAction("Open", {});
-        } 
-      } else {
-        if (value === 'up') {
-          await this.runBondAction("Open", {});
-        } 
-        if (value === 'down') {
-          await this.runBondAction("Close", {});
-        } 
+      await this.setWindowcoveringsState(value);      
+    });    
+  }
 
-      }
-    });
+  async setWindowcoveringsPosition(value) {
+    const flipPosition = this.getSetting('flipPosition');
+    let argVal = value * 100;
+    if (flipPosition) argVal = 100 - (argVal);
+    await this.runBondAction("SetPosition", { "argument": argVal });
+  }
+
+  async setWindowcoveringsState(value) {
+    this.log('setWindowcoveringsState ',value);      
+    if (value === 'idle') {
+      await this.runBondAction("Hold", {});
+      return;
+    } 
+    const flipOpenClose = this.getSetting('flipOpenClose');
+    if (flipOpenClose) {
+      if (value === 'up') {
+        await this.runBondAction("Close", {});
+      } 
+      if (value === 'down') {
+        await this.runBondAction("Open", {});
+      } 
+    } else {
+      if (value === 'up') {
+        await this.runBondAction("Open", {});
+      } 
+      if (value === 'down') {
+        await this.runBondAction("Close", {});
+      } 
+
+    }
   }
 
   async updateCapabilityValues(state) {
@@ -63,9 +71,9 @@ class ShadeDevice extends BondDevice {
       }
       const prevState = this.getCapabilityValue('windowcoverings_state');
       await this.safeUpdateCapabilityValue('windowcoverings_state', openState);
-      if (prevState !== openState) {
-        this.driver?.triggerShadeStateChanged?.(this, { state: openState });
-      }
+      // if (prevState !== openState) {
+      //   this.driver?.triggerShadeStateChanged?.(this, { state: openState });
+      // }
     }
 
     if (this.hasProperties(state.data,["position"]) && this.hasCapability('windowcoverings_set')) {          
@@ -74,13 +82,14 @@ class ShadeDevice extends BondDevice {
       if (flipPosition) argVal = 1 - (argVal);
       const prevPosition = this.getCapabilityValue('windowcoverings_set');
       await this.safeUpdateCapabilityValue('windowcoverings_set', argVal);
-      if (prevPosition !== argVal) {
-        this.driver?.triggerShadePositionChanged?.(this, { position: Math.round(argVal * 100) });
-      }
+      // if (prevPosition !== argVal) {
+      //   this.driver?.triggerShadePositionChanged?.(this, { position: Math.round(argVal * 100) });
+      // }
     }
   }
 
   async setShadeStateFromFlow(state) {
+    this.log(`setShadeStateFromFlow ['${this.getData().id}'] [${state}]`);
     if (!this.hasCapability('windowcoverings_state')) {
       throw new Error('Shade does not support open/close control');
     }
@@ -88,10 +97,12 @@ class ShadeDevice extends BondDevice {
     if (!allowed.includes(state)) {
       throw new Error('Unsupported shade state');
     }
-    await this.setCapabilityValue('windowcoverings_state', state);
+    await this.setWindowcoveringsState(state);
+    await this.safeUpdateCapabilityValue('windowcoverings_state', state);
   }
 
   async setShadePositionFromFlow(position) {
+    this.log(`setShadePositionFromFlow ['${this.getData().id}'] [${position}]`);
     if (!this.hasCapability('windowcoverings_set')) {
       throw new Error('Shade does not support position control');
     }
@@ -103,7 +114,8 @@ class ShadeDevice extends BondDevice {
       throw new Error('Position must be between 0 and 100');
     }
     const normalized = numericPosition / 100;
-    await this.setCapabilityValue('windowcoverings_set', normalized);
+    await this.setWindowcoveringsPosition(normalized);
+    await this.safeUpdateCapabilityValue('windowcoverings_set', normalized);
   }
 
   async isShadeState(state) {

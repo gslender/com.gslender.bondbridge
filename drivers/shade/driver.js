@@ -1,6 +1,7 @@
 'use strict';
 
 const { Driver } = require('homey');
+const stringify = require('json-stringify-safe');
 
 class ShadeDriver extends Driver {
 
@@ -29,11 +30,14 @@ class ShadeDriver extends Driver {
     this.flowConditionPosition = this.homey.flow.getConditionCard('shade_position_is');
     this.flowConditionPosition.registerRunListener(async ({ device, position }) => device.isShadePosition(Number(position)));
 
-    this.triggerShadeStateCard = this.homey.flow.getTriggerCard('shade_state_changed');
-    this.triggerShadePositionCard = this.homey.flow.getTriggerCard('shade_position_changed');
+    // this.triggerShadeStateCard = this.homey.flow.getTriggerCard('shade_state_changed');
+    // this.triggerShadePositionCard = this.homey.flow.getTriggerCard('shade_position_changed');
   }
-
+/*
   async triggerShadeStateChanged(device, tokens) {
+
+    this.log(`triggerShadeStateChanged [${stringify(device)}] [${stringify(tokens)}]`);
+
     if (!this.triggerShadeStateCard) return;
     try {
       await this.triggerShadeStateCard.trigger(device, tokens);
@@ -50,7 +54,7 @@ class ShadeDriver extends Driver {
       this.error('Failed to trigger shade_position_changed', error);
     }
   }
-
+*/
   /**
    * onPairListDevices is called when a user is adding a device
    * and the 'list_devices' view is called.

@@ -51,9 +51,9 @@ class FireplaceDevice extends BondDevice {
       const nextPowerState = state.data.fpfan_power === 1;
       const prevPowerState = this.getCapabilityValue('onoff');
       await this.safeUpdateCapabilityValue('onoff', nextPowerState);
-      if (prevPowerState !== nextPowerState) {
-        this.driver?.triggerFireplaceOnOffChanged?.(this, { onoff: nextPowerState });
-      }
+      // if (prevPowerState !== nextPowerState) {
+      //   this.driver?.triggerFireplaceOnOffChanged?.(this, { onoff: nextPowerState });
+      // }
 
       let mode = 'low';
       if (state.data.fpfan_speed == 100) {
@@ -65,14 +65,15 @@ class FireplaceDevice extends BondDevice {
       }
       const prevMode = this.getCapabilityValue('fpfan_mode');
       await this.safeUpdateCapabilityValue('fpfan_mode', mode);
-      if (prevMode !== mode) {
-        this.driver?.triggerFireplaceFanModeChanged?.(this, { fpfan_mode: mode });
-      }
+      // if (prevMode !== mode) {
+      //   this.driver?.triggerFireplaceFanModeChanged?.(this, { fpfan_mode: mode });
+      // }
     }
   }
 
   async setFireplaceModeFromFlow(mode) {
-    await this.setCapabilityValue('fpfan_mode', mode);
+    this.log(`setFireplaceModeFromFlow ['${this.getData().id}'] [${mode}]`);
+    await this.safeUpdateCapabilityValue('fpfan_mode', mode);
   }
 
   async isFireplaceMode(mode) {

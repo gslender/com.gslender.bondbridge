@@ -36,12 +36,12 @@ class FanDriver extends Driver {
     this.conditionFanLightOn = this.homey.flow.getConditionCard('fan_light_is_on');
     this.conditionFanLightOn.registerRunListener(async ({ device }) => device.isFanLightOn());
 
-    this.triggerFanModeCard = this.homey.flow.getTriggerCard('fan_mode_changed');
-    this.triggerFanSpeedCard = this.homey.flow.getTriggerCard('fan_speed_changed');
-    this.triggerFanDirectionCard = this.homey.flow.getTriggerCard('fan_direction_changed');
-    this.triggerFanLightCard = this.homey.flow.getTriggerCard('fan_light_state_changed');
+    // this.triggerFanModeCard = this.homey.flow.getTriggerCard('fan_mode_changed');
+    // this.triggerFanSpeedCard = this.homey.flow.getTriggerCard('fan_speed_changed');
+    // this.triggerFanDirectionCard = this.homey.flow.getTriggerCard('fan_direction_changed');
+    // this.triggerFanLightCard = this.homey.flow.getTriggerCard('fan_light_state_changed');
   }
-
+  /*
   async triggerFanModeChanged(device, tokens) {
     if (!this.triggerFanModeCard) return;
     try {
@@ -77,6 +77,7 @@ class FanDriver extends Driver {
       this.error('Failed to trigger fan_light_state_changed', error);
     }
   }
+  */
 
   /**
    * onPairListDevices is called when a user is adding a device

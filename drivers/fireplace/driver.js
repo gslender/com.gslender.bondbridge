@@ -18,10 +18,10 @@ class FireplaceDriver extends Driver {
     this.conditionIsOn = this.homey.flow.getConditionCard('fireplace_is_on');
     this.conditionIsOn.registerRunListener(async ({ device }) => device.isFireplaceOn());
 
-    this.triggerModeCard = this.homey.flow.getTriggerCard('fpfan_mode_changed');
-    this.triggerPowerCard = this.homey.flow.getTriggerCard('fireplace_onoff_changed');
+    // this.triggerModeCard = this.homey.flow.getTriggerCard('fpfan_mode_changed');
+    // this.triggerPowerCard = this.homey.flow.getTriggerCard('fireplace_onoff_changed');
   }
-
+/*
   async triggerFireplaceFanModeChanged(device, tokens) {
     if (!this.triggerModeCard) return;
     try {
@@ -39,7 +39,7 @@ class FireplaceDriver extends Driver {
       this.error('Failed to trigger fireplace_onoff_changed', error);
     }
   }
-
+*/
   /**
    * onPairListDevices is called when a user is adding a device
    * and the 'list_devices' view is called.
