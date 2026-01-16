@@ -20,14 +20,14 @@ class ShadeDevice extends BondDevice {
       // shade with positioning
       await this.addCapability("windowcoverings_set");
       this.registerCapabilityListener("windowcoverings_set", async (value) => {
-        await this.setWindowcoveringsPosition(value);
+        await this.applyShadePosition(value);
       });
     } else {
       await this.removeCapability("windowcoverings_set");
     }
 
     this.registerCapabilityListener("windowcoverings_state", async (value) => {
-      await this.setWindowcoveringsState(value);      
+      await this.applyShadeState(value);
     });    
   }
 
@@ -90,32 +90,12 @@ class ShadeDevice extends BondDevice {
 
   async setShadeStateFromFlow(state) {
     this.log(`setShadeStateFromFlow ['${this.getData().id}'] [${state}]`);
-    if (!this.hasCapability('windowcoverings_state')) {
-      throw new Error('Shade does not support open/close control');
-    }
-    const allowed = ['up', 'down', 'idle'];
-    if (!allowed.includes(state)) {
-      throw new Error('Unsupported shade state');
-    }
-    await this.setWindowcoveringsState(state);
-    await this.safeUpdateCapabilityValue('windowcoverings_state', state);
+    await this.applyShadeState(state);
   }
 
   async setShadePositionFromFlow(position) {
     this.log(`setShadePositionFromFlow ['${this.getData().id}'] [${position}]`);
-    if (!this.hasCapability('windowcoverings_set')) {
-      throw new Error('Shade does not support position control');
-    }
-    const numericPosition = Number(position);
-    if (Number.isNaN(numericPosition)) {
-      throw new Error('Position must be a number');
-    }
-    if (numericPosition < 0 || numericPosition > 100) {
-      throw new Error('Position must be between 0 and 100');
-    }
-    const normalized = numericPosition / 100;
-    await this.setWindowcoveringsPosition(normalized);
-    await this.safeUpdateCapabilityValue('windowcoverings_set', normalized);
+    await this.applyShadePosition(position);
   }
 
   async isShadeState(state) {
@@ -134,6 +114,34 @@ class ShadeDevice extends BondDevice {
       return false;
     }
     return Math.round(current * 100) === Math.round(position);
+  }
+
+  async applyShadeState(state) {
+    if (!this.hasCapability('windowcoverings_state')) {
+      throw new Error('Shade does not support open/close control');
+    }
+    const allowed = ['up', 'down', 'idle'];
+    if (!allowed.includes(state)) {
+      throw new Error('Unsupported shade state');
+    }
+    await this.setWindowcoveringsState(state);
+    await this.safeUpdateCapabilityValue('windowcoverings_state', state);
+  }
+
+  async applyShadePosition(position) {
+    if (!this.hasCapability('windowcoverings_set')) {
+      throw new Error('Shade does not support position control');
+    }
+    const numericPosition = Number(position);
+    if (Number.isNaN(numericPosition)) {
+      throw new Error('Position must be a number');
+    }
+    if (numericPosition < 0 || numericPosition > 100) {
+      throw new Error('Position must be between 0 and 100');
+    }
+    const normalized = numericPosition / 100;
+    await this.setWindowcoveringsPosition(normalized);
+    await this.safeUpdateCapabilityValue('windowcoverings_set', normalized);
   }
 }
 module.exports = ShadeDevice;

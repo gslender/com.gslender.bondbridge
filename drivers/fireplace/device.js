@@ -17,32 +17,11 @@ class FireplaceDevice extends BondDevice {
     await super.initialize('FireplaceDevice');
 
     this.registerCapabilityListener("onoff", async (value) => {
-      if (value) {
-        await this.runBondAction("TurnFpFanOn", {});
-      } else {
-        await this.runBondAction("TurnFpFanOff", {});
-      }   
+      await this.applyFireplacePower(value);
     });
 
     this.registerCapabilityListener("fpfan_mode", async (value) => {
-      if (value === 'off') {
-        await this.safeUpdateCapabilityValue('onoff',false);
-        await this.runBondAction("TurnFpFanOff", {});
-      } 
-      if (value === 'low') {
-        await this.safeUpdateCapabilityValue('onoff',true);
-        await this.runBondAction("SetFpFan", {"argument":1});
-      } 
-
-      if (value === 'medium') {
-        await this.safeUpdateCapabilityValue('onoff',true);
-        await this.runBondAction("SetFpFan", {"argument":50});
-      } 
-
-      if (value === 'high') {
-        await this.safeUpdateCapabilityValue('onoff',true);
-        await this.runBondAction("SetFpFan", {"argument":100});
-      } 
+      await this.applyFireplaceMode(value);
     });
   }
 
@@ -73,7 +52,7 @@ class FireplaceDevice extends BondDevice {
 
   async setFireplaceModeFromFlow(mode) {
     this.log(`setFireplaceModeFromFlow ['${this.getData().id}'] [${mode}]`);
-    await this.safeUpdateCapabilityValue('fpfan_mode', mode);
+    await this.applyFireplaceMode(mode);
   }
 
   async isFireplaceMode(mode) {
@@ -82,6 +61,38 @@ class FireplaceDevice extends BondDevice {
 
   async isFireplaceOn() {
     return this.getCapabilityValue('onoff') === true;
+  }
+
+  async applyFireplacePower(on) {
+    const nextState = Boolean(on);
+    if (nextState) {
+      await this.runBondAction("TurnFpFanOn", {});
+    } else {
+      await this.runBondAction("TurnFpFanOff", {});
+    }
+    await this.safeUpdateCapabilityValue('onoff', nextState);
+  }
+
+  async applyFireplaceMode(mode) {
+    const allowed = ['off', 'low', 'medium', 'high'];
+    if (!allowed.includes(mode)) {
+      throw new Error('Unsupported fireplace fan mode');
+    }
+    if (mode === 'off') {
+      await this.runBondAction("TurnFpFanOff", {});
+      await this.safeUpdateCapabilityValue('onoff', false);
+    } else {
+      await this.runBondAction("TurnFpFanOn", {});
+      if (mode === 'low') {
+        await this.runBondAction("SetFpFan", { "argument": 1 });
+      } else if (mode === 'medium') {
+        await this.runBondAction("SetFpFan", { "argument": 50 });
+      } else if (mode === 'high') {
+        await this.runBondAction("SetFpFan", { "argument": 100 });
+      }
+      await this.safeUpdateCapabilityValue('onoff', true);
+    }
+    await this.safeUpdateCapabilityValue('fpfan_mode', mode);
   }
 }
 module.exports = FireplaceDevice;

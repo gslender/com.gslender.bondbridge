@@ -88,5 +88,8 @@
   },
   "2.1.1": {
     "en": "Fixed flows"
+  },
+  "2.2.0": {
+    "en": "Finally fixes the flows to actually work"
   }
 }
