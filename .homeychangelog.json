@@ -91,5 +91,8 @@
   },
   "2.2.0": {
     "en": "Finally fixes the flows to actually work"
+  },
+  "2.2.1": {
+    "en": "Fixed fireplace heat and fan on/off"
   }
 }

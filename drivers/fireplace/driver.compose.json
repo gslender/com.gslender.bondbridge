@@ -15,9 +15,22 @@
   },
   "class": "heater",
   "capabilities": [
-    "fpfan_mode",
-    "onoff"
+    "onoff.heat",
+    "onoff.fan",
+    "fpfan_mode"
   ],
+	"capabilitiesOptions": {
+		"onoff.heat": {
+			"title": {
+				"en": "Heat On/Off"
+			}
+		},
+		"onoff.fan": {
+			"title": {
+				"en": "Fan On/Off"
+			}
+		}
+  },
   "platforms": [
     "local"
   ],
