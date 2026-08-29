@@ -94,5 +94,8 @@
   },
   "2.2.1": {
     "en": "Fixed fireplace heat and fan on/off"
+  },
+  "2.3.0": {
+    "en": "Fixed a few bugs. Fixed the blind slider. Reversed Invert Position % correctly."
   }
 }

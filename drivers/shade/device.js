@@ -20,7 +20,7 @@ class ShadeDevice extends BondDevice {
       // shade with positioning
       await this.addCapability("windowcoverings_set");
       this.registerCapabilityListener("windowcoverings_set", async (value) => {
-        await this.applyShadePosition(value);
+        await this.applyShadePosition(value * 100);
       });
     } else {
       await this.removeCapability("windowcoverings_set");
@@ -32,9 +32,10 @@ class ShadeDevice extends BondDevice {
   }
 
   async setWindowcoveringsPosition(value) {
+    // Homey's windowcoverings_set is 0=closed/1=open; Bond's SetPosition is 0=open/100=closed.
     const flipPosition = this.getSetting('flipPosition');
-    let argVal = value * 100;
-    if (flipPosition) argVal = 100 - (argVal);
+    let argVal = (1 - value) * 100;
+    if (flipPosition) argVal = 100 - argVal;
     await this.runBondAction("SetPosition", { "argument": argVal });
   }
 
@@ -76,10 +77,11 @@ class ShadeDevice extends BondDevice {
       // }
     }
 
-    if (this.hasProperties(state.data,["position"]) && this.hasCapability('windowcoverings_set')) {          
+    if (this.hasProperties(state.data,["position"]) && this.hasCapability('windowcoverings_set')) {
+      // Bond's position is 0=open/100=closed; Homey's windowcoverings_set is 0=closed/1=open.
       const flipPosition = this.getSetting('flipPosition');
-      let argVal = state.data.position / 100;
-      if (flipPosition) argVal = 1 - (argVal);
+      let argVal = 1 - (state.data.position / 100);
+      if (flipPosition) argVal = 1 - argVal;
       const prevPosition = this.getCapabilityValue('windowcoverings_set');
       await this.safeUpdateCapabilityValue('windowcoverings_set', argVal);
       // if (prevPosition !== argVal) {

@@ -18,7 +18,7 @@ class BondBridgeApp extends Homey.App {
 
     this.homey.settings.on('set', this.onSettingsChanged.bind(this));
 
-    this.pollingTimeoutId = {};
+    this.pollingIntervalId = null;
     this.state = {};
     this.state.devices = {};
 
@@ -53,7 +53,6 @@ class BondBridgeApp extends Homey.App {
     try {
       const response = await this.bond.getBondDevices();
       if (response.status === Bond.VALID_TOKEN) {
-        this.homey.clearInterval(this.pollingTimeoutId);
         this.homey.setTimeout(async () => {
           this.startPolling();
         }, this.getRandomNumber(750, 1750));
@@ -75,9 +74,8 @@ class BondBridgeApp extends Homey.App {
   onSettingsChanged(key) {
     if (key === 'bond.polling' || key === 'bond.ipaddress' || key === 'bond.token') {
       this.bond = this.newBondInstance();
-      this.homey.clearInterval(this.pollingTimeoutId);
       this.homey.setTimeout(async () => {
-        this.startPolling();
+        await this.startPolling();
         await this.homey.api.realtime("settingsChanged", "otherSuccess");
       }, 500);
     }
@@ -87,7 +85,6 @@ class BondBridgeApp extends Homey.App {
     this.log("handleDiscoveryResult.address:", discoveryResult.address);
     this.homey.settings.set('bond.ipaddress', discoveryResult.address);
     this.bond = this.newBondInstance();
-    this.homey.clearInterval(this.pollingTimeoutId);
     this.startPolling();
   }
 
@@ -100,13 +97,18 @@ class BondBridgeApp extends Homey.App {
     }
     this.log(`${this.id} polling every ${pollingInterval / 1000}sec started...`);
 
+    if (this.pollingIntervalId) {
+      this.homey.clearInterval(this.pollingIntervalId);
+      this.pollingIntervalId = null;
+    }
+
     // getFirmware
     let resultFmw = await this.bond.getBondFirmware();
     if (resultFmw.status === Bond.OKAY) {
       this.state.firmware = resultFmw.fw_ver;
       this.log(`getFirmware=${resultFmw.fw_ver}`);
       this.pollStatus();
-      this.pollingTimeoutId = this.homey.setInterval(() => {
+      this.pollingIntervalId = this.homey.setInterval(() => {
         this.pollStatus();
       }, pollingInterval);
     }

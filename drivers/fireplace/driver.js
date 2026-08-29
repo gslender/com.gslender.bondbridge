@@ -50,6 +50,10 @@ class FireplaceDriver extends Driver {
     let devices = [];
     const fpDevices = await this.homey.app.bond.getBondDevicesByType('FP');
 
+    if (!Array.isArray(fpDevices)) {
+      throw new Error('Unable to retrieve devices from the Bond bridge. Check the IP address and token in the app settings.');
+    }
+
     for (let i = 0; i < fpDevices.length; i++) {
       const bondDevice = fpDevices[i];
       const device = { 

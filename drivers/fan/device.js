@@ -17,7 +17,8 @@ class FanDevice extends BondDevice {
     await super.initialize('FanDevice');
 
 
-    this.feature_light = this.deviceData.data.actions.includes("TurnLightOn");
+    const actions = this.deviceData?.data?.actions || [];
+    this.feature_light = actions.includes("TurnLightOn");
 
     if (this.feature_light) {
       await this.addCapability("onoff");
